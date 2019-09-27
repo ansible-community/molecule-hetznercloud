@@ -30,7 +30,7 @@ Molecule Hetzner Cloud driver plugin.
 Documentation
 =============
 
-> https://molecule.readthedocs.io
+    https://molecule.readthedocs.io
 
 .. _get-involved:
 
