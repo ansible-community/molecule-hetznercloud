@@ -22,8 +22,7 @@ import os
 
 from molecule import logger, util
 from molecule.api import Driver
-from molecule.util import lru_cache
-from molecule.util import sysexit_with_message
+from molecule.util import lru_cache, sysexit_with_message
 
 log = logger.get_logger(__name__)
 
@@ -88,7 +87,7 @@ class HetznerCloud(Driver):
 
     def __init__(self, config=None):
         super(HetznerCloud, self).__init__(config)
-        self._name = 'hetznercloud'
+        self._name = "hetznercloud"
 
     @property
     def name(self):
@@ -100,14 +99,14 @@ class HetznerCloud(Driver):
 
     @property
     def login_cmd_template(self):
-        connection_options = ' '.join(self.ssh_connection_options)
+        connection_options = " ".join(self.ssh_connection_options)
 
         return (
-            'ssh {{address}} '
-            '-l {{user}} '
-            '-p {{port}} '
-            '-i {{identity_file}} '
-            '{}'
+            "ssh {{address}} "
+            "-l {{user}} "
+            "-p {{port}} "
+            "-i {{identity_file}} "
+            "{}"
         ).format(connection_options)
 
     @property
@@ -119,7 +118,7 @@ class HetznerCloud(Driver):
         return self._get_ssh_connection_options()
 
     def login_options(self, instance_name):
-        d = {'instance': instance_name}
+        d = {"instance": instance_name}
 
         return util.merge_dicts(d, self._get_instance_config(instance_name))
 
@@ -128,12 +127,12 @@ class HetznerCloud(Driver):
             d = self._get_instance_config(instance_name)
 
             return {
-                'ansible_user': d['user'],
-                'ansible_host': d['address'],
-                'ansible_port': d['port'],
-                'ansible_private_key_file': d['identity_file'],
-                'connection': 'ssh',
-                'ansible_ssh_common_args': ' '.join(self.ssh_connection_options),
+                "ansible_user": d["user"],
+                "ansible_host": d["address"],
+                "ansible_port": d["port"],
+                "ansible_private_key_file": d["identity_file"],
+                "connection": "ssh",
+                "ansible_ssh_common_args": " ".join(self.ssh_connection_options),
             }
         except StopIteration:
             return {}
@@ -146,7 +145,7 @@ class HetznerCloud(Driver):
         instance_config_dict = util.safe_load_file(self._config.driver.instance_config)
 
         return next(
-            item for item in instance_config_dict if item['instance'] == instance_name
+            item for item in instance_config_dict if item["instance"] == instance_name
         )
 
     @lru_cache()
@@ -159,16 +158,16 @@ class HetznerCloud(Driver):
             import hcloud  # noqa
         except ImportError:
             msg = (
-                'Missing Hetzner Cloud driver dependency. Please '
+                "Missing Hetzner Cloud driver dependency. Please "
                 "install via 'molecule[hetznercloud]' or refer to "
-                'your INSTALL.rst driver documentation file'
+                "your INSTALL.rst driver documentation file"
             )
             sysexit_with_message(msg)
 
-        if 'HCLOUD_TOKEN' not in os.environ:
+        if "HCLOUD_TOKEN" not in os.environ:
             msg = (
-                'Missing Hetzner Cloud API token. Please expose '
-                'the HCLOUD_TOKEN environment variable with your '
-                'account API token value'
+                "Missing Hetzner Cloud API token. Please expose "
+                "the HCLOUD_TOKEN environment variable with your "
+                "account API token value"
             )
             sysexit_with_message(msg)
