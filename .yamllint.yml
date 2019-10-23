@@ -1,0 +1,11 @@
+---
+
+extends: default
+
+ignore: molecule_hetznercloud/cookiecutter/scenario/driver/hetznercloud
+
+rules:
+  line-length: disable
+  braces:
+    max-spaces-inside: 1
+    level: error

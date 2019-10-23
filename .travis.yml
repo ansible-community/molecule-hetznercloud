@@ -1,0 +1,27 @@
+---
+
+language: python
+
+cache:
+  pip: true
+  directories:
+    - $HOME/.cache/pre-commit
+    - $HOME/.pre-commit
+
+jobs:
+  fast_finish: true
+  include:
+    - python: "3.7"
+      name: linting
+      env:
+        - TOXENV=lint
+    - python: "3.7"
+      name: unit tests
+      env:
+        - TOXENV=ansible28
+
+before_script:
+  - pip install tox==3.14.0
+
+script:
+  - tox
