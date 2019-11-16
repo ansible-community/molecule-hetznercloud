@@ -21,6 +21,7 @@
 import os
 
 import pytest
+
 import sh
 from molecule.scenario import ephemeral_directory
 
@@ -168,19 +169,7 @@ def test_command_idempotence(scenario_to_test, with_scenario, scenario_name):
     pytest.helpers.idempotence(scenario_name)
 
 
-@pytest.mark.parametrize(
-    "driver_name",
-    [
-        ("digitalocean"),
-        ("docker"),
-        ("ec2"),
-        ("gce"),
-        ("linode"),
-        ("openstack"),
-        ("vagrant"),
-    ],
-    indirect=["driver_name"],
-)
+@pytest.mark.parametrize("driver_name", [("hetznercloud")], indirect=["driver_name"])
 def test_command_init_role(temp_dir, driver_name, skip_test):
     pytest.helpers.init_role(temp_dir, driver_name)
 

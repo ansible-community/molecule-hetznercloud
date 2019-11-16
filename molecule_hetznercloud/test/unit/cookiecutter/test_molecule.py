@@ -46,7 +46,7 @@ def _instance(_base_class):
 def _command_args():
     return {
         "dependency_name": "galaxy",
-        "driver_name": "docker",
+        "driver_name": "hetznercloud",
         "lint_name": "yamllint",
         "provisioner_name": "ansible",
         "scenario_name": "default",

@@ -13,4 +13,4 @@ Install
 
 .. code-block:: bash
 
-    $ pip install 'molecule[hetznercloud]'
+    $ pip install molecule-hetznercloud
