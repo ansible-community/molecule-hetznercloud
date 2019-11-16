@@ -21,13 +21,14 @@
 import os
 
 import pytest
+
 from molecule import config
-from molecule_hetznercloud import hetznercloud
+from molecule_hetznercloud import driver
 
 
 @pytest.fixture
 def hetznercloud_instance(patched_config_validate, config_instance):
-    return hetznercloud.HetznerCloud(config_instance)
+    return driver.HetznerCloud(config_instance)
 
 
 def test_hetznercloud_config_gives_config_object(hetznercloud_instance):

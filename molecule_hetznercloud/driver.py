@@ -28,63 +28,6 @@ log = logger.get_logger(__name__)
 
 
 class HetznerCloud(Driver):
-    """
-    The class responsible for managing `Hetzner Cloud`_ instances.
-    `Hetzner Cloud`_ is **not** the default driver used in Molecule.
-
-    Molecule leverages Ansible's `hcloud_server module`_, by mapping variables
-    from ``molecule.yml`` into ``create.yml`` and ``destroy.yml``.
-
-    .. important::
-
-        The ``hcloud_server`` module is only available in Ansible >= 2.8.
-
-    .. _`hcloud_server module`: https://docs.ansible.com/ansible/devel/modules/hcloud_server_module.html#hcloud-server-module
-
-    .. code-block:: yaml
-
-        driver:
-          name: hetznercloud
-        platforms:
-          - name: instance
-            server_type: cx11
-            image: debian-9
-
-    .. code-block:: bash
-
-        $ pip install 'molecule[hetznercloud]'
-
-    Change the options passed to the ssh client.
-
-    .. code-block:: yaml
-
-        driver:
-          name: hetznercloud
-          ssh_connection_options:
-            - '-o ControlPath=~/.ansible/cp/%r@%h-%p'
-
-    .. important::
-
-        The Hetzner Cloud driver implementation uses the Parmiko transport
-        provided by Ansible to avoid issues of connection hanging and
-        indefinite polling as experienced with the default OpenSSh based
-        transport.
-
-    .. important::
-
-        Molecule does not merge lists, when overriding the developer must
-        provide all options.
-
-    Provide the files Molecule will preserve upon each subcommand execution.
-
-    .. code-block:: yaml
-
-        driver:
-          name: hetznercloud
-          safe_files:
-            - foo
-    """  # noqa
-
     def __init__(self, config=None):
         super(HetznerCloud, self).__init__(config)
         self._name = "hetznercloud"
@@ -137,8 +80,6 @@ class HetznerCloud(Driver):
         except StopIteration:
             return {}
         except IOError:
-            # Instance has yet to be provisioned , therefore the
-            # instance_config is not on disk.
             return {}
 
     def template_dir(self):
@@ -165,8 +106,8 @@ class HetznerCloud(Driver):
         except ImportError:
             msg = (
                 "Missing Hetzner Cloud driver dependency. Please "
-                "install via 'molecule[hetznercloud]' or refer to "
-                "your INSTALL.rst driver documentation file"
+                "install the 'molecule-hetznercloud' package or "
+                "refer to your INSTALL.rst driver documentation file"
             )
             sysexit_with_message(msg)
 
