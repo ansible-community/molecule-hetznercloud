@@ -66,6 +66,7 @@ def _model_platforms_hetznercloud_errors_section_data():
     }
 
 
+@pytest.mark.skip(reason="https://github.com/ansible/molecule/issues/2442")
 @pytest.mark.parametrize(
     "_config", ["_model_platforms_hetznercloud_errors_section_data"], indirect=True
 )
@@ -91,6 +92,7 @@ def test_platforms_hetznercloud_has_errors(_config):
     assert expected_config == schema_v2.validate(_config)
 
 
+@pytest.mark.skip(reason="https://github.com/ansible/molecule/issues/2442")
 @pytest.mark.parametrize(
     "_config", ["_model_platform_hetznercloud_section_data"], indirect=True
 )
