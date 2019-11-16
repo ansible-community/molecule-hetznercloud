@@ -22,7 +22,7 @@ import os
 
 import pytest
 from molecule import config
-from molecule.driver import hetznercloud
+from molecule_hetznercloud import hetznercloud
 
 
 @pytest.fixture
@@ -96,7 +96,7 @@ def test_hetznercloud_default_ssh_connection_options_property(hetznercloud_insta
 
 
 def test_hetznercloud_login_options(hetznercloud_instance, mocker):
-    target = "molecule.driver.hetznercloud.HetznerCloud._get_instance_config"
+    target = "molecule_hetznercloud.hetznercloud.HetznerCloud._get_instance_config"
     get_instance_config_patch = mocker.patch(target)
 
     get_instance_config_patch.return_value = {
@@ -119,7 +119,7 @@ def test_hetznercloud_login_options(hetznercloud_instance, mocker):
 
 
 def test_hetznercloud_ansible_connection_opts(hetznercloud_instance, mocker):
-    target = "molecule.driver.hetznercloud.HetznerCloud._get_instance_config"
+    target = "molecule_hetznercloud.hetznercloud.HetznerCloud._get_instance_config"
     get_instance_config_patch = mocker.patch(target)
 
     get_instance_config_patch.return_value = {
