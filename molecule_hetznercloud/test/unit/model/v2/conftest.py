@@ -33,7 +33,7 @@ def _molecule_file():
         os.path.pardir,
         os.path.pardir,
         "resources",
-        "molecule_docker.yml",
+        "molecule_hetznercloud.yml",
     )
 
 

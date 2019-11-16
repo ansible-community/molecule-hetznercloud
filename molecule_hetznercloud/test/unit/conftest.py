@@ -18,21 +18,20 @@
 #  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #  DEALINGS IN THE SOFTWARE.
 
-from uuid import uuid4
 import copy
 import functools
 import os
 import shutil
+from uuid import uuid4
+
+import pytest
+
+from molecule import config, util
 
 try:
     from pathlib import Path
 except ImportError:
     from pathlib2 import Path
-
-import pytest
-
-from molecule import util
-from molecule import config
 
 
 @pytest.helpers.register
@@ -55,7 +54,7 @@ def _molecule_dependency_galaxy_section_data():
 
 @pytest.fixture
 def _molecule_driver_section_data():
-    return {"driver": {"name": "docker", "options": {"managed": True}}}
+    return {"driver": {"name": "hetznercloud", "options": {"managed": True}}}
 
 
 @pytest.fixture
