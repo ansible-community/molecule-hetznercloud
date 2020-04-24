@@ -1,0 +1,18 @@
+---
+matrix:
+  include:
+    - IMAGE: 3.8-buster
+      TOXENV: linters
+
+    - IMAGE: 3.8-buster
+      TOXENV: packaging
+
+    - IMAGE: 3.8-buster
+      TOXENV: py38
+
+pipeline:
+  build:
+    image: python:${IMAGE}
+    commands:
+      - pip install tox==3.14.6
+      - tox -e ${TOXENV}
