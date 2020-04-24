@@ -7,6 +7,7 @@ steps:
     environment:
       HCLOUD_TOKEN:
         from_secret: HCLOUD_TOKEN
+      MOLECULE_DEBUG: true
     commands:
       - pip install -e .
       - export INSTANCE_UUID=$(echo $$RANDOM)
