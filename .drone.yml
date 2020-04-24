@@ -10,7 +10,3 @@ steps:
     commands:
       - pip install -e .
       - cd integration-test-role && molecule test
-depends_on:
-  - linters
-  - packaging
-  - py38
