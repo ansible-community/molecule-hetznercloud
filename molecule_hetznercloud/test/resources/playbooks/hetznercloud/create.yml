@@ -10,10 +10,8 @@
     ssh_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
   tasks:
     - name: Create SSH key
-      user:
-        name: "{{ lookup('env', 'USER') }}"
-        ssh_key_file: "{{ ssh_path }}"
-        generate_ssh_key: true
+      openssh_keypair:
+        path: "{{ ssh_path }}"
         force: true
       register: generated_ssh_key
 
@@ -24,7 +22,7 @@
     - name: Register SSH key for test instance(s)
       hcloud_ssh_key:
         name: "{{ ssh_key_name }}"
-        public_key: "{{ generated_ssh_key.ssh_public_key }}"
+        public_key: "{{ generated_ssh_key.public_key }}"
         state: present
 
     - name: Create molecule instance(s)
@@ -57,13 +55,15 @@
 
     - name: Populate instance config dict
       set_fact:
-        instance_conf_dict: {
-          'instance': "{{ item.hcloud_server.name }}",
-          'ssh_key_name': "{{ ssh_key_name }}",
-          'address': "{{ item.hcloud_server.ipv4_address }}",
-          'user': "{{ ssh_user }}",
-          'port': "{{ ssh_port }}",
-          'identity_file': "{{ ssh_path }}", }
+        instance_conf_dict:
+          {
+            "instance": "{{ item.hcloud_server.name }}",
+            "ssh_key_name": "{{ ssh_key_name }}",
+            "address": "{{ item.hcloud_server.ipv4_address }}",
+            "user": "{{ ssh_user }}",
+            "port": "{{ ssh_port }}",
+            "identity_file": "{{ ssh_path }}",
+          }
       with_items: "{{ hetzner_jobs.results }}"
       register: instance_config_dict
       when: server.changed | bool
