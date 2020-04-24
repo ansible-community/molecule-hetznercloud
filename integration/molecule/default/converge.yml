@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include integration-test-role"
+    - name: "Include integration"
       include_role:
-        name: "integration-test-role"
+        name: "integration"
