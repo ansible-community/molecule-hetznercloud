@@ -9,4 +9,5 @@ steps:
         from_secret: HCLOUD_TOKEN
     commands:
       - pip install -e .
+      - export INSTANCE_UUID=$RANDOM
       - cd integration-test-role && molecule test
