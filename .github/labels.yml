@@ -1,3 +1,4 @@
+---
 # Format and labels used aim to match those used by Ansible project
 # https://github.com/marketplace/actions/github-labeler
 - name: bug
