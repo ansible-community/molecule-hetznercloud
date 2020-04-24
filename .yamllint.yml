@@ -4,7 +4,6 @@ extends: default
 ignore: |
   molecule_hetznercloud/cookiecutter/scenario/driver/hetznercloud
   integration-test-role/meta/main.yml
-  integration-test-role/.travis.yml
 
 rules:
   line-length: disable
