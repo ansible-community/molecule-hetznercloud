@@ -5,11 +5,6 @@ dependency:
 driver:
   name: hetznercloud
 
-lint:
-  name: yamllint
-  options:
-    config-file: ../../../resources/.yamllint
-
 platforms:
   - name: instance-1
     server_type: cx11
@@ -32,8 +27,6 @@ provisioner:
     destroy: ../../../../../resources/playbooks/hetznercloud/destroy.yml
   env:
     ANSIBLE_ROLES_PATH: ../../../../../resources/roles/
-  lint:
-    name: ansible-lint
   config_options:
     defaults:
       timeout: 100
@@ -45,6 +38,4 @@ scenario:
 
 verifier:
   name: testinfra
-  lint:
-    name: flake8
   enabled: false

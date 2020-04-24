@@ -20,7 +20,7 @@
 
 import pytest
 
-from molecule.model import schema_v2
+from molecule.model import schema_v3
 
 
 @pytest.fixture
@@ -45,7 +45,7 @@ def _model_platform_hetznercloud_section_data():
     "_config", ["_model_platform_hetznercloud_section_data"], indirect=True
 )
 def test_platforms_hetznercloud(_config):
-    assert {} == schema_v2.validate(_config)
+    assert {} == schema_v3.validate(_config)
 
 
 @pytest.fixture
@@ -89,7 +89,7 @@ def test_platforms_hetznercloud_has_errors(_config):
         ]
     }
 
-    assert expected_config == schema_v2.validate(_config)
+    assert expected_config == schema_v3.validate(_config)
 
 
 @pytest.mark.skip(reason="https://github.com/ansible/molecule/issues/2442")
@@ -100,4 +100,4 @@ def test_platforms_hetznercloud_has_errors(_config):
 def test_platforms_hetznercloud_fields_required(_config, _required_field):
     del _config["platforms"][0][_required_field]
     expected_config = {"platforms": [{0: [{_required_field: ["required field"]}]}]}
-    assert expected_config == schema_v2.validate(_config)
+    assert expected_config == schema_v3.validate(_config)

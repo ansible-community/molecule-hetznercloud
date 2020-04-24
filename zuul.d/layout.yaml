@@ -1,0 +1,13 @@
+---
+# zuul.d/layout.yaml
+- project:
+    templates:
+      - publish-to-pypi
+    check:
+      jobs: &defaults
+        - molecule-tox-linters
+        - molecule-tox-packaging
+        - molecule-tox-py37-fedora-30
+        - molecule-tox-devel-centos-8
+    gate:
+      jobs: *defaults
