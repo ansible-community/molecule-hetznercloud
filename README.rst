@@ -24,8 +24,8 @@ TODO.
 Mirroring
 =========
 
-* `Primary` @ git.autonomic.zone (because independent cooperatively run infrastructure, yay!)
-* `Mirror` @ github.com (because centralised commerically owned infrastructure, sigh)
+* `Primary`_ @ git.autonomic.zone (because independent cooperatively run infrastructure, yay!)
+* `Mirror`_ @ github.com (because centralised commerically owned infrastructure, sigh)
 
 .. _`Primary`: https://git.autonomic.zone/autonomic-cooperative/molecule-hetznercloud
 .. _`Mirror`: https://github.com/ansible-community/molecule-hetznercloud
