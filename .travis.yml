@@ -12,16 +12,24 @@ jobs:
   fast_finish: true
   include:
     - python: "3.7"
-      name: linting
+      name: linters
       env:
-        - TOXENV=lint
+        - TOXENV=linters
     - python: "3.7"
-      name: unit tests
+      name: packaging
       env:
-        - TOXENV=ansible28
+        - TOXENV=packaging
+    - python: "3.7"
+      name: py37
+      env:
+        - TOXENV=py37
+    - python: "3.7"
+      name: devel
+      env:
+        - TOXENV=devel
 
 before_script:
-  - pip install tox==3.14.0
+  - pip install tox>=3.14.0
 
 script:
   - tox

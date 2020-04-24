@@ -6,8 +6,8 @@ Molecule Hetzner Cloud Plugin
    :target: https://badge.fury.io/py/molecule-hetznercloud
    :alt: PyPI Package
 
-.. image:: https://img.shields.io/travis/com/pycontribs/molecule-hetznercloud/master.svg?label=Linux%20builds%20%40%20Travis%20CI
-   :target: https://travis-ci.com/pycontribs/molecule-hetznercloud
+.. image:: https://img.shields.io/travis/com/ansible-community/molecule-hetznercloud/master.svg?label=Travis%20CI
+   :target: https://travis-ci.com/ansible-community/molecule-hetznercloud
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/python/black
