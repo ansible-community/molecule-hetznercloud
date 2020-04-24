@@ -1,23 +1,43 @@
 ---
-matrix:
-  include:
-    - IMAGE: 3.8-buster
-      TOXENV: linters
-
-    - IMAGE: 3.8-buster
-      TOXENV: packaging
-
-    - IMAGE: 3.8-buster
-      TOXENV: py38
-
-pipeline:
-  build:
-    image: python:${IMAGE}
+kind: pipeline
+name: linters
+steps:
+  - name: tox -e linters
+    image: python:3.8-buster
     commands:
       - pip install tox==3.14.6
-      - tox -e ${TOXENV}
-  integration:
+      - tox -e linters
+
+---
+kind: pipeline
+name: packaging
+steps:
+  - name: tox -e packaging
+    image: python:3.8-buster
+    commands:
+      - pip install tox==3.14.6
+      - tox -e packaging
+
+---
+kind: pipeline
+name: py38
+steps:
+  - name: tox -e py38
+    image: python:3.8-buster
+    commands:
+      - pip install tox==3.14.6
+      - tox -e py38
+
+---
+kind: pipeline
+name: integration
+steps:
+  - name: tox -e py38
     image: python:3.8-buster
     commands:
       - pip install -e .
       - cd integration-test-role && molecule test
+depends_on:
+  - linters
+  - packaging
+  - py38
