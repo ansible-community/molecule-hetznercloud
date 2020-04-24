@@ -1,4 +1,4 @@
-# Molecule Hetzner Cloud Driver Plugin
+# Molecule Hetzner Cloud Plugin
 
 [![Drone CI-CD](https://drone.autonomic.zone/api/badges/autonomic-cooperative/molecule-hetznercloud/status.svg)](https://drone.autonomic.zone/autonomic-cooperative/molecule-hetznercloud)
 [![PyPI Package](https://badge.fury.io/py/molecule-hetznercloud.svg)](https://badge.fury.io/py/molecule-hetznercloud)
