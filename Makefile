@@ -1,4 +1,4 @@
-DIRECTORY := integration-test-role
+DIRECTORY := integration
 DRIVER    := hetznercloud
 
 default: test

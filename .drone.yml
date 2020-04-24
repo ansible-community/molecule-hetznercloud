@@ -10,4 +10,4 @@ steps:
     commands:
       - pip install -e .
       - export INSTANCE_UUID=$(echo $$RANDOM)
-      - cd integration-test-role && molecule test
+      - cd integration && molecule test
