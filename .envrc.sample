@@ -1,0 +1,8 @@
+# The Hetzner Cloud API token for managing our instances
+export HCLOUD_TOKEN=$(pass show logins/hetzner/cicd/api_key)
+
+# So molecule will show credentials in the logs
+export MOLECULE_NO_LOG=False
+
+# For unique integration testing VPS names
+export INSTANCE_UUID=$RANDOM

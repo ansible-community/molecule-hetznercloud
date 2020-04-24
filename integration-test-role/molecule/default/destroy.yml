@@ -1,5 +1,4 @@
 ---
-{% raw -%}
 - name: Destroy
   hosts: localhost
   connection: local
@@ -55,4 +54,3 @@
         content: "{{ instance_conf | molecule_to_yaml | molecule_header }}"
         dest: "{{ molecule_instance_config }}"
       when: server.changed | bool
-{%- endraw %}

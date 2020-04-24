@@ -1,0 +1,13 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: hetznercloud
+platforms:
+  - name: "molecule-hetznercloud-integration-test-${INSTANCE_UUID}"
+    server_type: cx11
+    image: debian-10
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

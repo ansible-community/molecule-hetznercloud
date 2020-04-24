@@ -26,3 +26,24 @@ TODO.
 ## License
 
 The [LGPL](https://www.gnu.org/licenses/lgpl-3.0.en.html) license.
+
+## Testing
+
+Unit tests and such.
+
+```bash
+$ pip install tox
+$ tox -v
+```
+
+Integration tests.
+
+Only doable by [Autonomic Cooperative](https://autonomic.zone/) members.
+
+```bash
+$ sudo apt install -y direnv
+$ cp .envrc.sample .envrc
+$ direnv allow
+$ pip install -e .
+$ cd integration-test-role && molecule test
+```
