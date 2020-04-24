@@ -1,39 +1,42 @@
----
-kind: pipeline
-name: linters
-steps:
-  - name: tox -e linters
-    image: python:3.8-buster
-    commands:
-      - pip install tox==3.14.6
-      - tox -e linters
+# ---
+# kind: pipeline
+# name: linters
+# steps:
+#   - name: tox -e linters
+#     image: python:3.8-buster
+#     commands:
+#       - pip install tox==3.14.6
+#       - tox -e linters
 
----
-kind: pipeline
-name: packaging
-steps:
-  - name: tox -e packaging
-    image: python:3.8-buster
-    commands:
-      - pip install tox==3.14.6
-      - tox -e packaging
+# ---
+# kind: pipeline
+# name: packaging
+# steps:
+#   - name: tox -e packaging
+#     image: python:3.8-buster
+#     commands:
+#       - pip install tox==3.14.6
+#       - tox -e packaging
 
----
-kind: pipeline
-name: py38
-steps:
-  - name: tox -e py38
-    image: python:3.8-buster
-    commands:
-      - pip install tox==3.14.6
-      - tox -e py38
+# ---
+# kind: pipeline
+# name: py38
+# steps:
+#   - name: tox -e py38
+#     image: python:3.8-buster
+#     commands:
+#       - pip install tox==3.14.6
+#       - tox -e py38
 
 ---
 kind: pipeline
 name: integration
 steps:
-  - name: tox -e py38
+  - name: molecule test
     image: python:3.8-buster
+    environment:
+      HCLOUD_TOKEN:
+        from_secret: HCLOUD_TOKEN
     commands:
       - pip install -e .
       - cd integration-test-role && molecule test
