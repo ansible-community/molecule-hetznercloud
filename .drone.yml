@@ -17,9 +17,11 @@ pipeline:
       - pip install tox==3.14.6
       - tox -e ${TOXENV}
 ---
-pipeline:
-  integration:
-    image: python:${IMAGE}
+kind: pipeline
+name: default
+steps:
+  - name: integration
+    image: python:3.8-buster
     commands:
       - pip install -e .
       - cd integration-test-role && molecule test
