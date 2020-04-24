@@ -1,73 +1,50 @@
-*****************************
-Molecule Hetzner Cloud Plugin
-*****************************
+************************************
+Molecule Hetzner Cloud Driver Plugin
+************************************
 
 .. image:: https://badge.fury.io/py/molecule-hetznercloud.svg
    :target: https://badge.fury.io/py/molecule-hetznercloud
    :alt: PyPI Package
 
-.. image:: https://img.shields.io/travis/com/ansible-community/molecule-hetznercloud/master.svg?label=Travis%20CI
-   :target: https://travis-ci.com/ansible-community/molecule-hetznercloud
+.. image:: https://drone.autonomic.zone/api/badges/autonomic-cooperative/molecule-hetznercloud/status.svg
+   :target: https://drone.autonomic.zone/autonomic-cooperative/molecule-hetznercloud
+   :alt: Drone CI/CD
 
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-   :target: https://github.com/python/black
-   :alt: Python Black Code Style
-
-.. image:: https://img.shields.io/badge/Code%20of%20Conduct-Ansible-silver.svg
-   :target: https://docs.ansible.com/ansible/latest/community/code_of_conduct.html
-   :alt: Ansible Code of Conduct
-
-.. image:: https://img.shields.io/badge/Mailing%20lists-Ansible-orange.svg
-   :target: https://docs.ansible.com/ansible/latest/community/communication.html#mailing-list-information
-   :alt: Ansible mailing lists
-
-.. image:: https://img.shields.io/badge/license-MIT-brightgreen.svg
+.. image:: https://img.shields.io/badge/license-LGPL-brightgreen.svg
    :target: LICENSE
    :alt: Repository License
 
 Molecule Hetzner Cloud driver plugin.
 
-Documentation
-=============
+Usage
+=====
+
+TODO.
+
+Mirroring
+=========
+
+* `Primary` @ git.autonomic.zone (because independent cooperatively run infrastructure, yay!)
+* `Mirror` @ github.com (because centralised commerically owned infrastructure, sigh)
+
+.. _`Primary`: https://git.autonomic.zone/autonomic-cooperative/molecule-hetznercloud
+.. _`Mirror`: https://github.com/ansible-community/molecule-hetznercloud
+
+Molecule Documentation
+======================
 
     https://molecule.readthedocs.io
 
-.. _get-involved:
-
-Get Involved
-============
-
-* Join us in the ``#ansible-molecule`` channel on `Freenode`_.
-* Join the discussion in `molecule-users Forum`_.
-* Join the community working group by checking the `wiki`_.
-* Want to know about releases, subscribe to `ansible-announce list`_.
-* For the full list of Ansible email Lists, IRC channels see the
-  `communication page`_.
-
-.. _`Freenode`: https://freenode.net
-.. _`molecule-users Forum`: https://groups.google.com/forum/#!forum/molecule-users
-.. _`wiki`: https://github.com/ansible/community/wiki/Molecule
-.. _`ansible-announce list`: https://groups.google.com/group/ansible-announce
-.. _`communication page`: https://docs.ansible.com/ansible/latest/community/communication.html
-
-.. _authors:
-
-Authors
+Contact
 =======
 
-Molecule Hetzner Cloud Plugin was created by Luke Murphy based on code from Molecule.
+* Ping @decentral1se on the ``#ansible-molecule`` channel on `Freenode`_.
 
-.. _license:
+.. _`Freenode`: https://freenode.net
 
 License
 =======
 
-The `MIT`_ License.
+The `LGPL`_ License.
 
-.. _`MIT`: https://github.com/ansible/molecule/blob/master/LICENSE
-
-The logo is licensed under the `Creative Commons NoDerivatives 4.0 License`_.
-
-If you have some other use in mind, contact us.
-
-.. _`Creative Commons NoDerivatives 4.0 License`: https://creativecommons.org/licenses/by-nd/4.0/
+.. _`LGPL`: https://www.gnu.org/licenses/lgpl-3.0.en.html
