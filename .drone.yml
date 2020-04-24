@@ -5,6 +5,7 @@ steps:
   - name: molecule test
     image: python:3.8-buster
     environment:
+      MOLECULE_NO_LOG: false
       HCLOUD_TOKEN:
         from_secret: HCLOUD_TOKEN
     commands:
