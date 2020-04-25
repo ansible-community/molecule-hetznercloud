@@ -10,8 +10,8 @@ This plugin allows you to do `molecule init role myrolename -d hetznercloud`
 and have Molecule provision on-demand Hetzner Cloud VPSes of your choice for
 your integration testing. New VPSes will be automagically created and
 provisioned on each `molecule test` run, SSH keys are generated and managed
-internally and all resources are cleaned regardless whether the role under test
-succeeds or fails.
+internally and all resources are cleaned up regardless whether the role under
+test succeeds or fails.
 
 ## Support
 
