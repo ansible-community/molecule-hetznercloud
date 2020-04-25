@@ -92,7 +92,7 @@ See [CHANGELOG.md](./CHANGELOG.md).
 
 ## License
 
-The [LGPL](https://www.gnu.org/licenses/lgpl-3.0.en.html) license.
+The [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html) license.
 
 ## Testing
 
