@@ -26,7 +26,7 @@ steps:
     image: python:3.8-buster
     commands:
       - pip install tox==3.14.6
-      - tox -e py38---
+      - tox -e py38
 
 ---
 kind: pipeline
