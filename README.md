@@ -15,9 +15,10 @@ under test succeeds or fails.
 
 ## Support
 
-If you use this plugin and find it useful, please consider supporting my
-maintenance work financially through [Liberapay](https://liberapay.com/decentral1se/) or my
-[Github Sponsor profile](https://github.com/sponsors/decentral1se). I do not receive any
+If you use this plugin in a commercial setting or you find it personally
+useful, please support my maintenance work financially through
+[Liberapay](https://liberapay.com/decentral1se/) or through my [Github Sponsor
+profile](https://github.com/sponsors/decentral1se). I do not receive any
 financial support from RedHat or Hetzner Cloud for this work.
 
 ## Usage
