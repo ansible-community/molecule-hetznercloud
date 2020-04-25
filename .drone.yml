@@ -1,5 +1,35 @@
 ---
 kind: pipeline
+name: linters
+steps:
+  - name: tox -e linters
+    image: python:3.8-buster
+    commands:
+      - pip install tox==3.14.6
+      - tox -e linters
+
+---
+kind: pipeline
+name: packaging
+steps:
+  - name: tox -e packaging
+    image: python:3.8-buster
+    commands:
+      - pip install tox==3.14.6
+      - tox -e packaging
+
+---
+kind: pipeline
+name: py38
+steps:
+  - name: tox -e py38
+    image: python:3.8-buster
+    commands:
+      - pip install tox==3.14.6
+      - tox -e py38---
+
+---
+kind: pipeline
 name: integration
 steps:
   - name: molecule test
@@ -12,3 +42,7 @@ steps:
       - pip install -e .
       - export INSTANCE_UUID=$(openssl rand -hex 5)
       - cd integration && molecule test
+depends_on:
+  - linters
+  - packaging
+  - py38
