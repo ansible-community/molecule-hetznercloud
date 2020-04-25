@@ -78,6 +78,10 @@ Issues will be responded to on both issue trackers.
 - [git.autonomic.zone](https://git.autonomic.zone/autonomic-cooperative/molecule-hetznercloud) (primary)
 - [github.com](https://github.com/ansible-community/molecule-hetznercloud) (mirror)
 
+## Change log
+
+See [CHANGELOG.md](./CHANGELOG.md).
+
 ## Molecule Documentation
 
 > https://molecule.readthedocs.io
