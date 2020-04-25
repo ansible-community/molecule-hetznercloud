@@ -30,6 +30,17 @@ steps:
 
 ---
 kind: pipeline
+name: devel
+steps:
+  - name: tox -e devel
+    image: python:3.8-buster
+    failure: ignore
+    commands:
+      - pip install tox==3.14.6
+      - tox -e devel
+
+---
+kind: pipeline
 name: integration
 steps:
   - name: molecule test
