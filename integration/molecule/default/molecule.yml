@@ -4,7 +4,7 @@ dependency:
 driver:
   name: hetznercloud
 platforms:
-  - name: "molecule-hetznercloud-integration-test-${INSTANCE_UUID}"
+  - name: "molecule-hetznercloud-${INSTANCE_UUID}"
     server_type: cx11
     image: debian-10
 provisioner:

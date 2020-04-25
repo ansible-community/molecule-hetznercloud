@@ -10,5 +10,5 @@ steps:
         from_secret: HCLOUD_TOKEN
     commands:
       - pip install -e .
-      - export INSTANCE_UUID=$(openssl rand -hex 16)
+      - export INSTANCE_UUID=$(openssl rand -hex 5)
       - cd integration && molecule test
