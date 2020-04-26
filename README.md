@@ -63,7 +63,7 @@ Then just run the role.
 $ cd myrolename && molecule test
 ```
 
-To ease initial debugging for getting thing started, also expose the following
+To ease initial debugging for getting things started, also expose the following
 environment variables.
 
 ```bash
