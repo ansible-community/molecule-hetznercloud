@@ -71,6 +71,17 @@ $ export MOLECULE_NO_LOG=False  # not so verbose, helpful
 $ export MOLECULE_DEBUG=True  # very verbose, last ditch effort
 ```
 
+## Only use the `molecule.yml` for configuration
+
+It is being worked on that it is possible to remove all the files except the
+`molecule.yml` scenario file in your scenario directory. This is useful when
+you only require this plugin to do the default behaviour each time. It is also
+useful to reduce maintenance effort for migration of configurations. This
+plugin currently embeds the `create.yml` and `destroy.yml` playbooks. All other
+playbooks (e.g. prepare, cleanup) can be created as needed and Molecule will
+pick them up and run them. Embedding the `converge.yml` awaits [this feature
+request](https://github.com/ansible-community/molecule/issues/2675).
+
 ## Mirroring
 
 Issues will be responded to on both issue trackers.
