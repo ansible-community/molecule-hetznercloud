@@ -98,3 +98,8 @@ class HetznerCloud(Driver):
                 "account API token value"
             )
             sysexit_with_message(msg)
+
+    def reset(self):
+        """Destroy all resources managed by this plugin."""
+        # TODO(decentral1se): implement if ever needed
+        pass
