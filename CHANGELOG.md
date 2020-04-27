@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add bundle playbooks so that the only required config is `molecule.yml`
+- Added an internal `molecule.yml` so that `molecule init role` can get good defaults (will work with Molecule >= 3.0.4).
 
 ## [0.1.0] - 2020-04-27
 
