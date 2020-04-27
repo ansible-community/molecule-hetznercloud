@@ -24,6 +24,7 @@ any financial support from RedHat or Hetzner Cloud for this work.
 ## Usage
 
 You need to expose a `HCLOUD_TOKEN` environment variable in your environment.
+
 Find out more about how to get one of those [over here](https://docs.hetzner.cloud/#overview-authentication).
 
 ```bash
@@ -46,7 +47,7 @@ dependency:
 driver:
   name: hetznercloud
 platforms:
-  - name: my-instance-name
+  - name: instance
     server_type: cx11
     image: debian-10
 provisioner:
@@ -71,7 +72,7 @@ $ export MOLECULE_NO_LOG=False  # not so verbose, helpful
 $ export MOLECULE_DEBUG=True  # very verbose, last ditch effort
 ```
 
-## Only use the `molecule.yml` for configuration
+## Only use `molecule.yml` for configuration
 
 It is being worked on that it is possible to remove all the files except the
 `molecule.yml` scenario file in your scenario directory. This is useful when
@@ -109,16 +110,16 @@ The [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html) license.
 
 This is all done on our [drone.autonomic.zone](https://drone.autonomic.zone/autonomic-cooperative/molecule-hetznercloud) setup.
 
-Unit tests and such.
+### Unit
 
 ```bash
 $ pip install tox
 $ tox -v
 ```
 
-Integration tests.
+### Integration
 
-(Only doable by [Autonomic Cooperative](https://autonomic.zone/) members.)
+Only doable by [Autonomic Cooperative](https://autonomic.zone/) members.
 
 ```bash
 $ sudo apt install -y direnv
