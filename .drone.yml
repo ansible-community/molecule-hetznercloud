@@ -17,6 +17,8 @@ steps:
     commands:
       - pip install tox==3.14.6
       - tox -e packaging
+depends_on:
+  - linters
 
 ---
 kind: pipeline
@@ -27,6 +29,8 @@ steps:
     commands:
       - pip install tox==3.14.6
       - tox -e py36
+depends_on:
+  - linters
 
 ---
 kind: pipeline
@@ -37,6 +41,8 @@ steps:
     commands:
       - pip install tox==3.14.6
       - tox -e py37
+depends_on:
+  - linters
 
 ---
 kind: pipeline
@@ -47,6 +53,8 @@ steps:
     commands:
       - pip install tox==3.14.6
       - tox -e py38
+depends_on:
+  - linters
 
 ---
 kind: pipeline
@@ -58,6 +66,8 @@ steps:
     commands:
       - pip install tox==3.14.6
       - tox -e devel
+depends_on:
+  - linters
 
 ---
 kind: pipeline
