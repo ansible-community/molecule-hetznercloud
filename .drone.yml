@@ -20,6 +20,26 @@ steps:
 
 ---
 kind: pipeline
+name: py36
+steps:
+  - name: tox -e py36
+    image: python:3.6-buster
+    commands:
+      - pip install tox==3.14.6
+      - tox -e py36
+
+---
+kind: pipeline
+name: py37
+steps:
+  - name: tox -e py37
+    image: python:3.7-buster
+    commands:
+      - pip install tox==3.14.6
+      - tox -e py37
+
+---
+kind: pipeline
 name: py38
 steps:
   - name: tox -e py38
@@ -56,4 +76,6 @@ steps:
 depends_on:
   - linters
   - packaging
+  - py36
+  - py37
   - py38
