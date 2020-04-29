@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2020-04-29
+
+### Fixed
+
+- Pinned Molecule to avoid issues with `sh` dependency.
+
 ## [0.2.0] - 2020-04-27
 
 ### Added
