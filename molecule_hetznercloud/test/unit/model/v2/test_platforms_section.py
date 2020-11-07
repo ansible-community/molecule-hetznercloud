@@ -10,7 +10,7 @@ def _model_platform_hetznercloud_section_data():
             {
                 "name": "instance",
                 "server_type": "",
-                "volumes": [""],
+                "volumes": {},
                 "image": "",
                 "location": "",
                 "datacenter": "",
@@ -35,7 +35,7 @@ def _model_platforms_hetznercloud_errors_section_data():
             {
                 "name": 0,
                 "server_type": 0,
-                "volumes": {},
+                "volumes": [],
                 "image": 0,
                 "location": 0,
                 "datacenter": 0,
@@ -57,7 +57,7 @@ def test_platforms_hetznercloud_has_errors(_config):
                     {
                         "name": ["must be of string type"],
                         "server_type": ["must be of string type"],
-                        "volumes": ["must be of list type"],
+                        "volumes": ["must be of dict type"],
                         "image": ["must be of string type"],
                         "location": ["must be of string type"],
                         "datacenter": ["must be of string type"],

@@ -10,7 +10,7 @@
       block:
         - name: Populate instance config from file
           set_fact:
-            instance_conf: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"
+            instance_conf: "{{ lookup('file', molecule_instance_config) | from_yaml }}"
             skip_instances: false
       rescue:
         - name: Populate instance config when file missing
@@ -37,18 +37,17 @@
       retries: 300
       with_items: "{{ server.results }}"
 
-    - pause:
-        seconds: 5
-
     - name: Destroy volume(s)
       hcloud_volume:
-        name: "{{ item.instance }}"
+        name: "{{ item.volumes.name | default(item.instance) }}"
         server: "{{ item.instance }}"
         api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
         state: "absent"
       register: volumes
       with_items: "{{ instance_conf }}"
-      when: item.volume | default(False) | bool
+      when:
+        - item.volumes is defined
+        - item.volumes.create | default(False) | bool
       async: 7200
       poll: 0
 
@@ -76,7 +75,10 @@
 
     - name: Dump instance config
       copy:
-        content: "{{ instance_conf | molecule_to_yaml | molecule_header }}"
+        content: |
+          # Molecule managed
+
+          {{ instance_conf | to_json | from_json | to_yaml }}
         dest: "{{ molecule_instance_config }}"
       when: server.changed | bool
 {%- endraw %}

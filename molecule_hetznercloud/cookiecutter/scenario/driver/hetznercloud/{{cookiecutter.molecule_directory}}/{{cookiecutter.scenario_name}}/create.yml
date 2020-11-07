@@ -54,14 +54,16 @@
 
     - name: Create volume(s)
       hcloud_volume:
-        name: "{{ item.name }}"
+        name: "{{ item.volumes.name | default(item.name) }}"
         server: "{{ item.name }}"
-        location: "{{ item.location | default(omit) }}"
-        size: "{{ item.volume_size | default(10) }}"
+        location: "{{ item.volumes.location | default(omit) }}"
+        size: "{{ item.volumes.size | default(10) }}"
         api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
         state: "present"
       with_items: "{{ molecule_yml.platforms }}"
-      when: item.volume | default(False) | bool
+      when:
+        - item.volumes is defined
+        - item.volumes.create | default(False) | bool
       register: volumes
       async: 7200
       poll: 0
@@ -84,7 +86,7 @@
           'user': "{{ ssh_user }}",
           'port': "{{ ssh_port }}",
           'identity_file': "{{ ssh_path }}",
-          'volume': "{{ item.item.item.volume | default(False) | bool }}", }
+          'volumes': "{{ item.item.item.volumes | default({}) }}", }
       with_items: "{{ hetzner_jobs.results }}"
       register: instance_config_dict
       when: server.changed | bool
@@ -96,7 +98,10 @@
 
     - name: Dump instance config
       copy:
-        content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
+        content: |
+          # Molecule managed
+
+          {{ instance_conf | to_json | from_json | to_yaml }}
         dest: "{{ molecule_instance_config }}"
       when: server.changed | bool
 
@@ -106,5 +111,5 @@
         host: "{{ item.address }}"
         search_regex: SSH
         delay: 10
-      with_items: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"
+      with_items: "{{ lookup('file', molecule_instance_config) | from_yaml }}"
 {%- endraw %}
