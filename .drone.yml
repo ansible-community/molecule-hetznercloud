@@ -7,9 +7,6 @@ steps:
     commands:
       - pip install tox==3.14.6
       - tox -e linters
-trigger:
-  ref:
-    - "refs/heads/master"
 
 ---
 kind: pipeline
@@ -22,9 +19,6 @@ steps:
       - tox -e packaging
 depends_on:
   - linters
-trigger:
-  ref:
-    - "refs/heads/master"
 
 ---
 kind: pipeline
@@ -37,9 +31,6 @@ steps:
       - tox -e py36
 depends_on:
   - linters
-trigger:
-  ref:
-    - "refs/heads/master"
 
 ---
 kind: pipeline
@@ -52,9 +43,6 @@ steps:
       - tox -e py37
 depends_on:
   - linters
-trigger:
-  ref:
-    - "refs/heads/master"
 
 ---
 kind: pipeline
@@ -67,9 +55,6 @@ steps:
       - tox -e py38
 depends_on:
   - linters
-trigger:
-  ref:
-    - "refs/heads/master"
 
 ---
 kind: pipeline
@@ -83,9 +68,6 @@ steps:
       - tox -e devel
 depends_on:
   - linters
-trigger:
-  ref:
-    - "refs/heads/master"
 
 ---
 kind: pipeline
@@ -107,6 +89,3 @@ depends_on:
   - py36
   - py37
   - py38
-trigger:
-  ref:
-    - "refs/heads/master"
