@@ -45,10 +45,9 @@ Find out more about how to get one of those [over here](https://docs.hetzner.clo
 $ export HCLOUD_TOKEN=mycoolapitoken
 ```
 
-Then install the required Python package.
+Then create a role using the driver plugin.
 
 ```bash
-$ pip install molecule-hetznercloud
 $ molecule init role myrolename -d hetznercloud
 ```
 
