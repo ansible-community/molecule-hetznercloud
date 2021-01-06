@@ -41,12 +41,9 @@
         name: "{{ item.volumes.name | default(item.instance) }}"
         server: "{{ item.instance }}"
         api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
-        state: "absent"
+        state: absent
       register: volumes
       with_items: "{{ instance_conf }}"
-      when:
-        - item.volumes is defined
-        - item.volumes.create | default(False) | bool
       async: 7200
       poll: 0
 
@@ -66,7 +63,7 @@
         state: absent
       when:
         - not skip_instances
-        - instance_conf | length  # must contain at least one instance
+        - instance_conf | length # must contain at least one instance
 
     - name: Populate instance config
       set_fact:

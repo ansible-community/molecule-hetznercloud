@@ -82,10 +82,15 @@ after use.
 
 ```yaml
 volumes:
-  name: "molecule-hetznercloud-volume-${INSTANCE_UUID}"
-  size: 11
-  create: true
+  - name: "molecule-hetznercloud-volume-1-${INSTANCE_UUID}"
+  - name: "molecule-hetznercloud-volume-2-${INSTANCE_UUID}"
 ```
+
+Supported keys are:
+
+- **name** (required): name of volume
+- **size** (optional, default: `10GB`): size of volume
+- **location** (optional, default: `omitted`): path for volume
 
 ## Only use `molecule.yml` for configuration
 

@@ -53,16 +53,13 @@
 
     - name: Create volume(s)
       hcloud_volume:
-        name: "{{ item.volumes.name | default(item.name) }}"
-        server: "{{ item.name }}"
-        location: "{{ item.volumes.location | default(omit) }}"
-        size: "{{ item.volumes.size | default(10) }}"
+        name: "{{ item.1.name | default(item.0.name) }}"
+        server: "{{ item.0.name }}"
+        location: "{{ item.1.location | default(omit) }}"
+        size: "{{ item.1.size | default(10) }}"
         api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
         state: "present"
-      with_items: "{{ molecule_yml.platforms }}"
-      when:
-        - item.volumes is defined
-        - item.volumes.create | default(False) | bool
+      loop: "{{ molecule_yml.platforms|subelements('volumes', skip_missing=True)}}"
       register: volumes
       async: 7200
       poll: 0
@@ -73,19 +70,23 @@
       register: hetzner_volumes
       until: hetzner_volumes.finished
       retries: 300
-      when: volumes.changed
+      when:
+        - volumes is defined
+        - volumes.changed
       with_items: "{{ volumes.results }}"
 
     - name: Populate instance config dict
       set_fact:
-        instance_conf_dict: {
-          'instance': "{{ item.hcloud_server.name }}",
-          'ssh_key_name': "{{ ssh_key_name }}",
-          'address': "{{ item.hcloud_server.ipv4_address }}",
-          'user': "{{ ssh_user }}",
-          'port': "{{ ssh_port }}",
-          'identity_file': "{{ ssh_path }}",
-          'volumes': "{{ item.item.item.volumes | default({}) }}", }
+        instance_conf_dict:
+          {
+            "instance": "{{ item.hcloud_server.name }}",
+            "ssh_key_name": "{{ ssh_key_name }}",
+            "address": "{{ item.hcloud_server.ipv4_address }}",
+            "user": "{{ ssh_user }}",
+            "port": "{{ ssh_port }}",
+            "identity_file": "{{ ssh_path }}",
+            "volumes": "{{ item.item.item.volumes | default({}) }}",
+          }
       with_items: "{{ hetzner_jobs.results }}"
       register: instance_config_dict
       when: server.changed | bool

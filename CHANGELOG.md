@@ -14,7 +14,8 @@ new major version of Molecule. If you use the `volumes:` key in your
 `molecule.yml` then this change will break your configuration. Please see the
 section on "Volume Handling" in the README.md on how to upgrade successfully.
 You will now need to install Ansible yourself as Molecule does not do it for
-you.
+you. If there are any other breaking changes, please report them on the issue
+tracker so that we can mention them here.
 
 - Support Python 3.9.
 - Support Molecule 3.2.1
