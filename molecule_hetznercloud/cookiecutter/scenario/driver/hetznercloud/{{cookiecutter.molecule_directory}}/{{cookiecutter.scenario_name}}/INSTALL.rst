@@ -5,7 +5,7 @@ Hetzner Cloud plugin installation guide
 Requirements
 ============
 
-* Ansible >= 2.9
+* Ansible >= 2.10
 * ``HCLOUD_TOKEN`` exposed in your environment
 
 Install

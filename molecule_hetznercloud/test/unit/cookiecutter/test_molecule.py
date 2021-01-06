@@ -1,8 +1,6 @@
 import os
 
 import pytest
-import sh
-
 from molecule import util
 from molecule.command.init import base
 from molecule.model import schema_v3
@@ -57,5 +55,5 @@ def test_drivers(
 
     assert {} == schema_v3.validate(data)
 
-    cmd = sh.yamllint.bake("-s", _molecule_file)
+    cmd = ["yamllint", "-s", _molecule_file]
     pytest.helpers.run_command(cmd)

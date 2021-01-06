@@ -1,7 +1,6 @@
 import os
 
 import pytest
-
 from molecule import config
 from molecule_hetznercloud import driver
 
@@ -13,13 +12,6 @@ def hetznercloud_instance(patched_config_validate, config_instance):
 
 def test_hetznercloud_config_gives_config_object(hetznercloud_instance):
     assert isinstance(hetznercloud_instance._config, config.Config)
-
-
-def test_hetznercloud_testinfra_options_property(hetznercloud_instance):
-    assert {
-        "connection": "ansible",
-        "ansible-inventory": hetznercloud_instance._config.provisioner.inventory_file,
-    } == hetznercloud_instance.testinfra_options
 
 
 def test_hetznercloud_name_property(hetznercloud_instance):

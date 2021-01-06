@@ -12,13 +12,14 @@ LOG = logger.get_logger(__name__)
 
 @pytest.helpers.register
 def run_command(cmd, env=os.environ, log=True):
-    if log:
-        cmd = _rebake_command(cmd, env)
-    cmd = cmd.bake(_truncate_exc=False)
-    return util.run_command(cmd)
+    if cmd.__class__.__name__ == "Command":
+        if log:
+            cmd = _rebake_command(cmd, env)
+        cmd = cmd.bake(_truncate_exc=False)
+    return util.run_command(cmd, env=env)
 
 
-def _rebake_command(cmd, env, out=LOG.out, err=LOG.error):
+def _rebake_command(cmd, env, out=LOG.info, err=LOG.error):
     return cmd.bake(_env=env, _out=out, _err=err)
 
 
