@@ -33,7 +33,6 @@
         server_type: "{{ item.server_type }}"
         ssh_keys:
           - "{{ ssh_key_name }}"
-        volumes: "{{ item.volumes | default(omit) }}"
         image: "{{ item.image }}"
         location: "{{ item.location | default(omit) }}"
         datacenter: "{{ item.datacenter | default(omit) }}"
@@ -53,6 +52,31 @@
       retries: 300
       with_items: "{{ server.results }}"
 
+    - name: Create volume(s)
+      hcloud_volume:
+        name: "{{ item.volumes.name | default(item.name) }}"
+        server: "{{ item.name }}"
+        location: "{{ item.volumes.location | default(omit) }}"
+        size: "{{ item.volumes.size | default(10) }}"
+        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+        state: "present"
+      with_items: "{{ molecule_yml.platforms }}"
+      when:
+        - item.volumes is defined
+        - item.volumes.create | default(False) | bool
+      register: volumes
+      async: 7200
+      poll: 0
+
+    - name: Wait for volume(s) creation to complete
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+      register: hetzner_volumes
+      until: hetzner_volumes.finished
+      retries: 300
+      when: volumes.changed
+      with_items: "{{ volumes.results }}"
+
     - name: Populate instance config dict
       set_fact:
         instance_conf_dict: {
@@ -61,7 +85,8 @@
           'address': "{{ item.hcloud_server.ipv4_address }}",
           'user': "{{ ssh_user }}",
           'port': "{{ ssh_port }}",
-          'identity_file': "{{ ssh_path }}", }
+          'identity_file': "{{ ssh_path }}",
+          'volumes': "{{ item.item.item.volumes | default({}) }}", }
       with_items: "{{ hetzner_jobs.results }}"
       register: instance_config_dict
       when: server.changed | bool
@@ -73,7 +98,10 @@
 
     - name: Dump instance config
       copy:
-        content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
+        content: |
+          # Molecule managed
+
+          {{ instance_conf | to_json | from_json | to_yaml }}
         dest: "{{ molecule_instance_config }}"
       when: server.changed | bool
 
@@ -83,5 +111,5 @@
         host: "{{ item.address }}"
         search_regex: SSH
         delay: 10
-      with_items: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"
+      with_items: "{{ lookup('file', molecule_instance_config) | from_yaml }}"
 {%- endraw %}
