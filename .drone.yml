@@ -3,9 +3,9 @@ kind: pipeline
 name: linters
 steps:
   - name: tox -e linters
-    image: python:3.8-buster
+    image: python:3.9-buster
     commands:
-      - pip install tox==3.14.6
+      - pip install tox
       - tox -e linters
 
 ---
@@ -13,9 +13,9 @@ kind: pipeline
 name: packaging
 steps:
   - name: tox -e packaging
-    image: python:3.8-buster
+    image: python:3.9-buster
     commands:
-      - pip install tox==3.14.6
+      - pip install tox
       - tox -e packaging
 depends_on:
   - linters
@@ -27,7 +27,7 @@ steps:
   - name: tox -e py36
     image: python:3.6-buster
     commands:
-      - pip install tox==3.14.6
+      - pip install tox
       - tox -e py36
 depends_on:
   - linters
@@ -39,7 +39,7 @@ steps:
   - name: tox -e py37
     image: python:3.7-buster
     commands:
-      - pip install tox==3.14.6
+      - pip install tox
       - tox -e py37
 depends_on:
   - linters
@@ -51,7 +51,7 @@ steps:
   - name: tox -e py38
     image: python:3.8-buster
     commands:
-      - pip install tox==3.14.6
+      - pip install tox
       - tox -e py38
 depends_on:
   - linters
@@ -61,10 +61,10 @@ kind: pipeline
 name: devel
 steps:
   - name: tox -e devel
-    image: python:3.8-buster
+    image: python:3.9-buster
     failure: ignore
     commands:
-      - pip install tox==3.14.6
+      - pip install tox
       - tox -e devel
 depends_on:
   - linters
@@ -74,7 +74,7 @@ kind: pipeline
 name: integration
 steps:
   - name: molecule test
-    image: python:3.8-buster
+    image: python:3.9-buster
     environment:
       MOLECULE_NO_LOG: false
       HCLOUD_TOKEN:
