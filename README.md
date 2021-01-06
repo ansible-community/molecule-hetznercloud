@@ -126,5 +126,5 @@ $ sudo apt install -y direnv
 $ cp .envrc.sample .envrc
 $ direnv allow
 $ pip install -e .
-$ cd integration-test-role && molecule test
+$ cd integration && molecule test
 ```
