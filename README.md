@@ -21,6 +21,20 @@ useful, please support my maintenance work financially through my
 Sponsor profile](https://github.com/sponsors/decentral1se). I do not receive
 any financial support from RedHat or Hetzner Cloud for this work.
 
+## Install
+
+```bash
+$ pip install molecule-hetznercloud
+```
+
+## Upgrade
+
+Please see the [CHANGELOG.md](./CHANGELOG.md) for migration guides.
+
+```bash
+$ pip install --upgrade molecule-hetznercloud
+```
+
 ## Usage
 
 You need to expose a `HCLOUD_TOKEN` environment variable in your environment.
