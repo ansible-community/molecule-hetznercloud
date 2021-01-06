@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Decolonise Git praxis and use the main branch as default
 - Support Python 3.9.
 - Support Molecule 3.2.1
-- Decolonise Git praxis and use the main branch as default
+- Add volume creation and clean up handling
 
 ## [0.2.2] - 2020-06-15
 

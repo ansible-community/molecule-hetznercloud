@@ -72,6 +72,21 @@ $ export MOLECULE_NO_LOG=False  # not so verbose, helpful
 $ export MOLECULE_DEBUG=True  # very verbose, last ditch effort
 ```
 
+## Vokume Handling
+
+It is possible to have the driver manage volumes during the test run.
+
+You can add the following stanza to your Molecule configuration to have
+Molecule create this volume for the managed VPS. This volume will be cleaned up
+after use.
+
+```yaml
+volumes:
+  name: "molecule-hetznercloud-volume-${INSTANCE_UUID}"
+  size: 11
+  create: true
+```
+
 ## Only use `molecule.yml` for configuration
 
 It is being worked on that it is possible to remove all the files except the
