@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.3.0] - 2021-01-06
+## [1.0.0] - 2021-01-06
+
+This is a major release with breaking changes for your schema and support for a
+new major version of Molecule. If you use the `volumes:` key in your
+`molecule.yml` then this change will break your configuration. Please see the
+section on "Volume Handling" in the README.md on how to upgrade successfully.
+You will now need to install Ansible yourself as Molecule does not do it for
+you.
 
 - Support Python 3.9.
 - Support Molecule 3.2.1
