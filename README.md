@@ -162,6 +162,6 @@ Only doable by [Autonomic Cooperative](https://autonomic.zone/) members.
 $ sudo apt install -y direnv
 $ cp .envrc.sample .envrc
 $ direnv allow
-$ pip install -e .
+$ pip install -e . ansible
 $ cd integration && molecule test
 ```
