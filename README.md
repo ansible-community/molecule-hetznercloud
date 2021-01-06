@@ -91,12 +91,16 @@ It is possible to have the driver manage volumes during the test run.
 
 You can add the following stanza to your Molecule configuration to have
 Molecule create this volume for the managed VPS. This volume will be cleaned up
-after use.
+after use (**Please note**: there is a bug raised against clean-up right now,
+see [#24](https://github.com/ansible-community/molecule-hetznercloud/issues/24)
+for more).
 
 ```yaml
 volumes:
   - name: "molecule-hetznercloud-volume-1-${INSTANCE_UUID}"
+    location: /foo/bar
   - name: "molecule-hetznercloud-volume-2-${INSTANCE_UUID}"
+    size: 20
 ```
 
 Supported keys are:
