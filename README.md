@@ -72,7 +72,7 @@ $ export MOLECULE_NO_LOG=False  # not so verbose, helpful
 $ export MOLECULE_DEBUG=True  # very verbose, last ditch effort
 ```
 
-## Vokume Handling
+## Volume Handling
 
 It is possible to have the driver manage volumes during the test run.
 
