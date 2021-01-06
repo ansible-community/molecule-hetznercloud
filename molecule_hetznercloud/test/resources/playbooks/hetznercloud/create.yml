@@ -23,6 +23,7 @@
       hcloud_ssh_key:
         name: "{{ ssh_key_name }}"
         public_key: "{{ generated_ssh_key.public_key }}"
+        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
         state: present
 
     - name: Create molecule instance(s)
@@ -31,7 +32,6 @@
         server_type: "{{ item.server_type }}"
         ssh_keys:
           - "{{ ssh_key_name }}"
-        volumes: "{{ item.volumes | default(omit) }}"
         image: "{{ item.image }}"
         location: "{{ item.location | default(omit) }}"
         datacenter: "{{ item.datacenter | default(omit) }}"
@@ -51,19 +51,41 @@
       retries: 300
       with_items: "{{ server.results }}"
 
-    # Mandatory configuration for Molecule to function.
+    - name: Create volume(s)
+      hcloud_volume:
+        name: "{{ item.volumes.name | default(item.name) }}"
+        server: "{{ item.name }}"
+        location: "{{ item.volumes.location | default(omit) }}"
+        size: "{{ item.volumes.size | default(10) }}"
+        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+        state: "present"
+      with_items: "{{ molecule_yml.platforms }}"
+      when:
+        - item.volumes is defined
+        - item.volumes.create | default(False) | bool
+      register: volumes
+      async: 7200
+      poll: 0
+
+    - name: Wait for volume(s) creation to complete
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+      register: hetzner_volumes
+      until: hetzner_volumes.finished
+      retries: 300
+      when: volumes.changed
+      with_items: "{{ volumes.results }}"
 
     - name: Populate instance config dict
       set_fact:
-        instance_conf_dict:
-          {
-            "instance": "{{ item.hcloud_server.name }}",
-            "ssh_key_name": "{{ ssh_key_name }}",
-            "address": "{{ item.hcloud_server.ipv4_address }}",
-            "user": "{{ ssh_user }}",
-            "port": "{{ ssh_port }}",
-            "identity_file": "{{ ssh_path }}",
-          }
+        instance_conf_dict: {
+          'instance': "{{ item.hcloud_server.name }}",
+          'ssh_key_name': "{{ ssh_key_name }}",
+          'address': "{{ item.hcloud_server.ipv4_address }}",
+          'user': "{{ ssh_user }}",
+          'port': "{{ ssh_port }}",
+          'identity_file': "{{ ssh_path }}",
+          'volumes': "{{ item.item.item.volumes | default({}) }}", }
       with_items: "{{ hetzner_jobs.results }}"
       register: instance_config_dict
       when: server.changed | bool

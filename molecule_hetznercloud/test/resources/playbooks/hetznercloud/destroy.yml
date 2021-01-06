@@ -36,15 +36,37 @@
       retries: 300
       with_items: "{{ server.results }}"
 
+    - name: Destroy volume(s)
+      hcloud_volume:
+        name: "{{ item.volumes.name | default(item.instance) }}"
+        server: "{{ item.instance }}"
+        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+        state: "absent"
+      register: volumes
+      with_items: "{{ instance_conf }}"
+      when:
+        - item.volumes is defined
+        - item.volumes.create | default(False) | bool
+      async: 7200
+      poll: 0
+
+    - name: Wait for volume(s) deletion to complete
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+      register: hetzner_volumes
+      until: hetzner_volumes.finished
+      retries: 300
+      when: volumes.changed
+      with_items: "{{ volumes.results }}"
+
     - name: Remove registered SSH key
       hcloud_ssh_key:
         name: "{{ instance_conf[0].ssh_key_name }}"
+        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
         state: absent
       when:
         - not skip_instances
-        - instance_conf  # must contain at least one instance
-
-    # Mandatory configuration for Molecule to function.
+        - instance_conf | length  # must contain at least one instance
 
     - name: Populate instance config
       set_fact:

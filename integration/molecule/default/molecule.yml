@@ -7,6 +7,10 @@ platforms:
   - name: "molecule-hetznercloud-${INSTANCE_UUID}"
     server_type: cx11
     image: debian-10
+    volumes:
+      name: "molecule-hetznercloud-volume-${INSTANCE_UUID}"
+      size: 11
+      create: true
 provisioner:
   name: ansible
 verifier:
