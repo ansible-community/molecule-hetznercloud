@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Decolonise Git praxis and use the main branch as default.
+
 ## [0.2.2] - 2020-06-15
 
 ## Fixed
