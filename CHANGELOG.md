@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changed
 
-- Relaxed bounds on Molecule to allow allow all versions < v4 ([#27](https://github.com/ansible-community/molecule-hetznercloud/pull/27))
+- Relaxed bounds on Molecule to allow all versions < v4 ([#27](https://github.com/ansible-community/molecule-hetznercloud/pull/27))
 
 ## [1.0.0] - 2021-01-06
 
