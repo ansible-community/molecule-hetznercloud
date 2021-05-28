@@ -75,6 +75,48 @@
         - volumes.changed
       with_items: "{{ volumes.results }}"
 
+    - name: Create private network(s)
+      hcloud_network:
+        name: "{{ item.name }}"
+        ip_range: "{{ item.ip_range | default(omit) }}"
+        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+        state: "present"
+      loop: "{{ molecule_yml.platforms|molecule_get_hetznercloud_networks('networks') }}"
+      register: networks
+      async: 7200
+      poll: 0
+
+    - name: Wait for network(s) creation to complete
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+      register: hetzner_networks
+      until: hetzner_networks.finished
+      retries: 300
+      when:
+        - networks is defined
+        - networks.changed
+      with_items: "{{ networks.results }}"
+
+    - name: Create private subnetwork(s)
+      hcloud_subnetwork:
+        network: "{{ item.network_name }}"
+        ip_range: "{{ item.ip|ipaddr('network/prefix') }}"
+        network_zone: "{{ item.network_zone | default('eu-central') }}"
+        type: "{{ item.type | default('cloud') }}"
+        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+        state: "present"
+      loop: "{{ molecule_yml.platforms|molecule_get_hetznercloud_networks('subnetworks') }}"
+      register: subnetworks
+
+    - name: Attach Server to Subnetwork(s)
+      hcloud_server_network:
+        network: "{{ item.network_name }}"
+        server: "{{ item.server_name }}"
+        ip: "{{ item.ip|ipaddr('address') }}"
+        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+        state: "present"
+      loop: "{{ molecule_yml.platforms|molecule_get_hetznercloud_networks('subnetworks') }}"
+
     - name: Populate instance config dict
       set_fact:
         instance_conf_dict:
@@ -86,6 +128,7 @@
             "port": "{{ ssh_port }}",
             "identity_file": "{{ ssh_path }}",
             "volumes": "{{ item.item.item.volumes | default({}) }}",
+            "networks": "{{ item.item.item.networks | default({}) | dict2items(key_name='name', value_name='data') }}",
           }
       with_items: "{{ hetzner_jobs.results }}"
       register: instance_config_dict

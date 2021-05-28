@@ -7,6 +7,19 @@ platforms:
   - name: "{{ cookiecutter.role_name }}"
     server_type: cx11
     image: debian-10
+    volumes:
+      - name: "molecule-hetznercloud-volume-1"
+    networks:
+      molecule-hetznercloud-network-1:
+        ip_range: 10.10.0.0/16
+        subnet:
+          ip: 10.10.10.1/24
+          type: cloud
+          network_zone: eu-central
+      molecule-hetznercloud-network-2:
+        ip_range: 10.20.0.0/16
+        subnet:
+          ip: 10.20.10.1/24
 provisioner:
   name: ansible
 lint: |

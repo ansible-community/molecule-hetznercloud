@@ -96,11 +96,15 @@ see [#24](https://github.com/ansible-community/molecule-hetznercloud/issues/24)
 for more).
 
 ```yaml
-volumes:
-  - name: "molecule-hetznercloud-volume-1-${INSTANCE_UUID}"
-    location: /foo/bar
-  - name: "molecule-hetznercloud-volume-2-${INSTANCE_UUID}"
-    size: 20
+platforms:
+  - name: instance
+    server_type: cx11
+    image: debian-10
+    volumes:
+      - name: "molecule-hetznercloud-volume-1-${INSTANCE_UUID}"
+        location: /foo/bar
+      - name: "molecule-hetznercloud-volume-2-${INSTANCE_UUID}"
+        size: 20
 ```
 
 Supported keys are:
@@ -108,6 +112,48 @@ Supported keys are:
 - **name** (required): name of volume
 - **size** (optional, default: `10GB`): size of volume
 - **location** (optional, default: `omitted`): path for volume
+
+## Network Creation
+
+This Driver is able to generate networks and subnetworks during the test run.
+This can be useful for cluster tests. You can create networks with the
+following snippet:
+
+```yaml
+platforms:
+  - name: instance1
+    server_type: cx11
+    image: debian-10
+    networks:
+      test-network:
+        ip_range: 10.10.0.0/16
+        subnet:
+          ip: 10.10.10.1/24
+          type: cloud
+          network_zone: eu-central
+      test-network-2:
+        ip_range: 10.20.0.0/16
+        subnet:
+          ip: 10.20.10.1/24
+  - name: instance2
+    server_type: cx11
+    image: debian-10
+    networks:
+      test-network:
+        subnet:
+          ip: 10.10.10.2/24
+```
+
+The networks **ip_range** is only important for creating. If you have multiple
+hosts, it is okay to only define **ip_range** once. The supported keys are:
+
+- **networks**
+    - **ip_range** (required): ip range of network (usually `/16`)
+
+- **subnet**
+    - **ip** (required): ip that should be assigned to host (also generates subnetwork) - prefix mandatory
+    - **type** (optional, default: `cloud`): type of subnetwork
+    - **network_zone** (optional, default: `eu-central`): network zone of subnetwork
 
 ## Only use `molecule.yml` for configuration
 
