@@ -87,6 +87,8 @@ $ export MOLECULE_DEBUG=True  # very verbose, last ditch effort
 
 ## Volume Handling
 
+> WARNING: this feature appears to be broke. See [#24](https://github.com/ansible-community/molecule-hetznercloud/issues/24) for more
+
 It is possible to have the driver manage volumes during the test run.
 
 You can add the following stanza to your Molecule configuration to have
