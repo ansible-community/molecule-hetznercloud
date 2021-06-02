@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2021-06-02
+
+- Allow to create networks during test runs ([#29](https://github.com/ansible-community/molecule-hetznercloud/pull/29), thanks @ggggut!)
+
 ## [1.1.0] - 2021-03-30
 
 ## Changed
