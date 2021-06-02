@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.1] - 2021-06-02
 
-- Remove async task handling for network deletion ([#30](https://github.com/ansible-community/molecule-hetznercloud/pull/30))
+- Remove async task handling for network deletion ([#30](https://github.com/ansible-community/molecule-hetznercloud/pull/30), credit @ggggut)
 
 ## [1.2.0] - 2021-06-02
 
