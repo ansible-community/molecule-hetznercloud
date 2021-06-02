@@ -202,12 +202,12 @@ $ tox -v
 
 ### Integration
 
-Only doable by [Autonomic Cooperative](https://autonomic.zone/) members.
-
-```bash
-$ sudo apt install -y direnv
-$ cp .envrc.sample .envrc
-$ direnv allow
-$ pip install -e . ansible
-$ cd integration && molecule test
+```
+git clone https://github.com/ansible-community/molecule-hetznercloud.git
+cd molecule-hetznercloud
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e . "ansible<4"
+export INSTANCE_UUID=$(openssl rand -hex 5)
+export HCLOUD_TOKEN=YOURKEY
+cd integration && molecule test
 ```
