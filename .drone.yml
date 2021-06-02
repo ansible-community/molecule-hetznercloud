@@ -82,6 +82,7 @@ steps:
     commands:
       - pip install -e .
       - pip install "ansible>=2.10, <2.11"
+      - pip install netaddr
       - export INSTANCE_UUID=$(openssl rand -hex 5)
       - cd integration && molecule test
 depends_on:
