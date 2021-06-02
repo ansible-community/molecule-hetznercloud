@@ -183,7 +183,7 @@ See [CHANGELOG.md](./CHANGELOG.md).
 
 ## Contact
 
-- Ping @decentral1se on the `#ansible-molecule` channel on [Freenode](https://webchat.freenode.net).
+- Ping @decentral1se on the `#ansible-molecule` channel on [Libera](https://libera.chat/).
 
 ## License
 
