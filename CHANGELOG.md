@@ -9,9 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.1] - 2021-06-02
 
+### Fixed
+
 - Remove async task handling for network deletion ([#30](https://github.com/ansible-community/molecule-hetznercloud/pull/30), credit @ggggut)
 
 ## [1.2.0] - 2021-06-02
+
+### Added
 
 - Allow to create networks during test runs ([#29](https://github.com/ansible-community/molecule-hetznercloud/pull/29), thanks @ggggut!)
 
@@ -19,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changed
 
-- Relaxed bounds on Molecule to allow all versions < v4 ([#27](https://github.com/ansible-community/molecule-hetznercloud/pull/27))
+- Relaxed bounds on Molecule to allow all versions less than `v4` ([#27](https://github.com/ansible-community/molecule-hetznercloud/pull/27))
 
 ## [1.0.0] - 2021-01-06
 
@@ -37,7 +41,7 @@ tracker so that we can mention them here.
 
 ## [0.2.2] - 2020-06-15
 
-## Fixed
+### Fixed
 
 - Point to an open issue tracker
 
