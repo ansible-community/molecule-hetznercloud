@@ -27,6 +27,8 @@ any financial support from RedHat or Hetzner Cloud for this work.
 $ pip install molecule-hetznercloud
 ```
 
+If you're looking for a container approach, see [ansible-community/toolset](https://github.com/ansible-community/toolset).
+
 ## Upgrade
 
 Please see the [CHANGELOG.md](./CHANGELOG.md) for migration guides.
