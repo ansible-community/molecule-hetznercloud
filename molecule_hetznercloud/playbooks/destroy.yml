@@ -6,16 +6,16 @@
   no_log: "{{ molecule_no_log }}"
   tasks:
     - name: Populate the instance config
-      block:
-        - name: Populate instance config from file
-          set_fact:
-            instance_conf: "{{ lookup('file', molecule_instance_config) | from_yaml }}"
-            skip_instances: false
-      rescue:
-        - name: Populate instance config when file missing
-          set_fact:
-            instance_conf: {}
-            skip_instances: true
+      set_fact:
+        instance_conf: "{{ lookup('file', molecule_instance_config, errors='warn') | from_yaml }}"
+        skip_instances: false
+      register: instance_config_lookup
+
+    - name: Populate instance config when file missing
+      set_fact:
+        instance_conf: {}
+        skip_instances: true
+      when: not instance_config_lookup.ansible_facts.instance_conf
 
     - name: Destroy molecule instance(s)
       hcloud_server:
