@@ -1,8 +1,9 @@
 import os
 
+from ansible_compat.ports import cache
 from molecule import logger, util
 from molecule.api import Driver
-from molecule.util import lru_cache, sysexit_with_message
+from molecule.util import sysexit_with_message
 
 log = logger.get_logger(__name__)
 
@@ -75,7 +76,7 @@ class HetznerCloud(Driver):
             item for item in instance_config_dict if item["instance"] == instance_name
         )
 
-    @lru_cache()
+    @cache
     def sanity_checks(self):
         """Hetzner Cloud driver sanity checks."""
 
