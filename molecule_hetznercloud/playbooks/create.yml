@@ -91,6 +91,34 @@
           | rejectattr('type', '==', 'vswitch')
         }}
 
+    - name: Create floating ip(s) and assign it to server
+      hetzner.hcloud.hcloud_floating_ip:
+        name: "{{ item.name }}"
+        server: "{{ item.server_name }}"
+        type: "{{ item.type }}"
+        home_location: "{{ item.home_location | default(omit) }}"
+        state: "present"
+      register: "floating_ip"
+      loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_floating_ips() }}"
+
+    - name: Set floating_ips list
+      ansible.builtin.set_fact:
+        server_floating_ips: >
+          {{
+            server_floating_ips | default([]) + [
+              {
+                'instance': item.hcloud_floating_ip.server,
+                'floating_ips': {
+                  'ip_name': item.hcloud_floating_ip.name,
+                  'ip': item.hcloud_floating_ip.ip,
+                  'type': item.hcloud_floating_ip.type,
+                  'home_location': item.hcloud_floating_ip.home_location,
+                }
+              }
+            ]
+          }}
+      loop: "{{ floating_ip.results }}"
+
     - name: Create instance config
       block:
         - name: Populate instance config dict
