@@ -26,6 +26,9 @@ platforms:
       shared:
         subnet:
           ip: 10.10.10.2/24
+    floating_ips:
+      floating-1:
+        type: ipv4
     volumes:
       - name: volume-1
       - name: volume-2

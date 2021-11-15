@@ -131,6 +131,45 @@ platforms:
           ip: 10.1.0.1/24
 ```
 
+**Floating IP**
+
+You can create an floating ip assigned to your host during molecule run.
+
+```yaml
+platforms:
+  - name: instance1
+    server_type: cx11
+    image: debian-10
+    floating_ips:
+      test_ip_1:
+        type: ipv4
+      test_ip_2:
+        type: ipv6
+```
+
+- **floating_ips**
+  - **type** (required): type of floating ip ('ipv4' or 'ipv6')
+
+Note that you have to assign the ip to the specific interface on the host.
+You can do something like this in your `Converge.yaml` or `Prepare.yaml`:
+
+```yaml
+- name: set floating_ip
+  changed_when: false
+  vars:
+    instance_conf: "{{ lookup('file', molecule_instance_config, errors='warn') | from_yaml }}"
+  shell: |
+    set -o pipefail;
+    if ip a | grep -q {{ item.1.ip }};
+    then echo "ip already assigned";
+    else ip addr add {{ item.1.ip }} dev eth0;
+    fi
+  args:
+    executable: /bin/bash
+  when: "item.0.instance == inventory_hostname"
+  loop: "{{ instance_conf|subelements('floating_ips', skip_missing=True) }}"
+```
+
 > [!NOTE]
 > The `networks.ip_range` is important for creating. If you have multiple
 > hosts, you may only define it once.
