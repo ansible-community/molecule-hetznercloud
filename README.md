@@ -1,6 +1,5 @@
 # Molecule Hetzner Cloud Plugin
 
-[![Drone CI-CD](https://drone.autonomic.zone/api/badges/autonomic-cooperative/molecule-hetznercloud/status.svg)](https://drone.autonomic.zone/autonomic-cooperative/molecule-hetznercloud)
 [![PyPI Package](https://badge.fury.io/py/molecule-hetznercloud.svg)](https://badge.fury.io/py/molecule-hetznercloud)
 [![Repository License](https://img.shields.io/badge/license-LGPL-brightgreen.svg)](LICENSE)
 
@@ -12,14 +11,6 @@ your integration testing. New VPSes will be automagically created and
 provisioned on each `molecule test` run, SSH keys are generated and managed
 internally and all resources are cleaned up regardless of whether the role
 under test succeeds or fails.
-
-## Support
-
-If you use this plugin in a commercial setting or you find it personally
-useful, please support my maintenance work financially through my
-[Liberapay](https://liberapay.com/decentral1se/) profile or through my [Github
-Sponsor profile](https://github.com/sponsors/decentral1se). I do not receive
-any financial support from RedHat or Hetzner Cloud for this work.
 
 ## Install
 
@@ -166,13 +157,6 @@ playbooks (e.g. prepare, cleanup) can be created as needed and Molecule will
 pick them up and run them. Embedding the `converge.yml` awaits [this feature
 request](https://github.com/ansible-community/molecule/issues/2675).
 
-## Mirroring
-
-Issues will be responded to on both issue trackers.
-
-- [git.autonomic.zone](https://git.autonomic.zone/autonomic-cooperative/molecule-hetznercloud) (primary)
-- [github.com](https://github.com/ansible-community/molecule-hetznercloud) (mirror)
-
 ## Change log
 
 See [CHANGELOG.md](./CHANGELOG.md).
@@ -181,17 +165,11 @@ See [CHANGELOG.md](./CHANGELOG.md).
 
 > https://molecule.readthedocs.io
 
-## Contact
-
-- Ping @decentral1se on the `#ansible-molecule` channel on [Libera](https://libera.chat/).
-
 ## License
 
 The [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html) license.
 
 ## Testing
-
-This is all done on our [drone.autonomic.zone](https://drone.autonomic.zone/autonomic-cooperative/molecule-hetznercloud) setup.
 
 ### Unit
 
