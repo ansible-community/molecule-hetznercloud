@@ -1,13 +1,13 @@
 ---
 repos:
-  - repo: https://github.com/python/black.git
-    rev: 19.10b0
+  - repo: https://github.com/psf/black
+    rev: 22.12.0
     hooks:
       - id: black
         language_version: python3
 
   - repo: https://github.com/pre-commit/pre-commit-hooks.git
-    rev: v2.5.0
+    rev: v4.4.0
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
@@ -16,14 +16,14 @@ repos:
       - id: check-merge-conflict
       - id: debug-statements
 
-  - repo: https://gitlab.com/pycqa/flake8.git
-    rev: 3.7.9
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
     hooks:
       - id: flake8
         language_version: python3
 
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.23.0
+    rev: v1.28.0
     hooks:
       - id: yamllint
         entry: yamllint -c .yamllint.yml --strict
