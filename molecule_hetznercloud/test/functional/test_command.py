@@ -1,7 +1,6 @@
 import os
 
 import pytest
-
 import sh
 from molecule.scenario import ephemeral_directory
 

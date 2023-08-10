@@ -5,7 +5,6 @@ import shutil
 from uuid import uuid4
 
 import pytest
-
 from molecule import config, util
 
 try:
@@ -78,7 +77,6 @@ def molecule_data(
     _molecule_scenario_section_data,
     _molecule_verifier_section_data,
 ):
-
     fixtures = [
         _molecule_dependency_galaxy_section_data,
         _molecule_driver_section_data,

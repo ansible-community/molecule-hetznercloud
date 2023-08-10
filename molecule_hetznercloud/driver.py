@@ -10,7 +10,7 @@ log = logger.get_logger(__name__)
 
 class HetznerCloud(Driver):
     def __init__(self, config=None):
-        super(HetznerCloud, self).__init__(config)
+        super().__init__(config)
         self._name = "hetznercloud"
 
     @property
@@ -60,13 +60,13 @@ class HetznerCloud(Driver):
             }
         except StopIteration:
             return {}
-        except IOError:
+        except OSError:
             return {}
 
     def template_dir(self):
         return os.path.join(
             os.path.dirname(__file__),
-            "cookiecutter/scenario/driver/{}".format(self.name),
+            f"cookiecutter/scenario/driver/{self.name}",
         )
 
     def _get_instance_config(self, instance_name):
@@ -80,7 +80,7 @@ class HetznerCloud(Driver):
     def sanity_checks(self):
         """Hetzner Cloud driver sanity checks."""
 
-        log.info("Sanity checks: '{}'".format(self._name))
+        log.info(f"Sanity checks: '{self._name}'")
 
         try:
             import hcloud  # noqa

@@ -2,6 +2,7 @@ import os
 
 import pytest
 from molecule import config
+
 from molecule_hetznercloud import driver
 
 

@@ -25,7 +25,7 @@ def _rebake_command(cmd, env, out=LOG.info, err=LOG.error):
 
 @pytest.fixture
 def random_string(length=5):
-    return "".join((random.choice(string.ascii_uppercase) for _ in range(length)))
+    return "".join(random.choice(string.ascii_uppercase) for _ in range(length))
 
 
 @contextlib.contextmanager
@@ -77,7 +77,7 @@ def get_molecule_file(path):
 
 @pytest.helpers.register
 def molecule_ephemeral_directory(_fixture_uuid):
-    project_directory = "test-project-{}".format(_fixture_uuid)
+    project_directory = f"test-project-{_fixture_uuid}"
     scenario_name = "test-instance"
 
     return ephemeral_directory(

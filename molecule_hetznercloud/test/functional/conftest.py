@@ -132,8 +132,8 @@ def list(x):
     out = out.stdout.decode("utf-8")
     out = util.strip_ansi_color(out)
 
-    for l in x.splitlines():
-        assert l in out
+    for line in x.splitlines():
+        assert line in out
 
 
 @pytest.helpers.register
@@ -142,8 +142,8 @@ def list_with_format_plain(x):
     result = util.run_command(cmd)
     out = util.strip_ansi_color(result.stdout)
 
-    for l in x.splitlines():
-        assert l in out
+    for line in x.splitlines():
+        assert line in out
 
 
 @pytest.helpers.register
@@ -160,7 +160,7 @@ def login(login_args, scenario_name="default"):
                 instance, scenario_name
             )
         else:
-            child_cmd = "molecule login --scenario-name {}".format(scenario_name)
+            child_cmd = f"molecule login --scenario-name {scenario_name}"
         child = pexpect.spawn(child_cmd)
         child.expect(regexp)
         child.sendline("exit")
