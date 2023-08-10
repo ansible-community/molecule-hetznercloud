@@ -120,15 +120,17 @@
 
     - name: Populate instance config dict
       set_fact:
-        instance_conf_dict: {
-          'instance': "{{ item.hcloud_server.name }}",
-          'ssh_key_name': "{{ ssh_key_name }}",
-          'address': "{{ item.hcloud_server.ipv4_address }}",
-          'user': "{{ ssh_user }}",
-          'port': "{{ ssh_port }}",
-          'identity_file': "{{ ssh_path }}",
-          'volumes': "{{ item.item.item.volumes | default({}) }}",
-          'networks': "{{ item.item.item.networks | default({}) | dict2items(key_name='name', value_name='data') }}", }
+        instance_conf_dict:
+          {
+            "instance": "{{ item.hcloud_server.name }}",
+            "ssh_key_name": "{{ ssh_key_name }}",
+            "address": "{{ item.hcloud_server.ipv4_address }}",
+            "user": "{{ ssh_user }}",
+            "port": "{{ ssh_port }}",
+            "identity_file": "{{ ssh_path }}",
+            "volumes": "{{ item.item.item.volumes | default({}) }}",
+            "networks": "{{ item.item.item.networks | default({}) | dict2items(key_name='name', value_name='data') }}",
+          }
       with_items: "{{ hetzner_jobs.results }}"
       register: instance_config_dict
       when: server.changed | bool

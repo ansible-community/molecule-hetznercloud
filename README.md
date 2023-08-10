@@ -139,12 +139,11 @@ The networks **ip_range** is only important for creating. If you have multiple
 hosts, it is okay to only define **ip_range** once. The supported keys are:
 
 - **networks**
-    - **ip_range** (required): ip range of network (usually `/16`)
-
+  - **ip_range** (required): ip range of network (usually `/16`)
 - **subnet**
-    - **ip** (required): ip that should be assigned to host (also generates subnetwork) - prefix mandatory
-    - **type** (optional, default: `cloud`): type of subnetwork
-    - **network_zone** (optional, default: `eu-central`): network zone of subnetwork
+  - **ip** (required): ip that should be assigned to host (also generates subnetwork) - prefix mandatory
+  - **type** (optional, default: `cloud`): type of subnetwork
+  - **network_zone** (optional, default: `eu-central`): network zone of subnetwork
 
 ## Only use `molecule.yml` for configuration
 
