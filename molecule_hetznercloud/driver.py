@@ -1,9 +1,7 @@
 import os
 
-from ansible_compat.ports import cache
 from molecule import logger, util
 from molecule.api import Driver
-from molecule.util import sysexit_with_message
 
 log = logger.get_logger(__name__)
 
@@ -76,29 +74,8 @@ class HetznerCloud(Driver):
             item for item in instance_config_dict if item["instance"] == instance_name
         )
 
-    @cache
     def sanity_checks(self):
         """Hetzner Cloud driver sanity checks."""
-
-        log.info(f"Sanity checks: '{self._name}'")
-
-        try:
-            import hcloud  # noqa
-        except ImportError:
-            msg = (
-                "Missing Hetzner Cloud driver dependency. Please "
-                "install the 'molecule-hetznercloud' package or "
-                "refer to your INSTALL.rst driver documentation file"
-            )
-            sysexit_with_message(msg)
-
-        if "HCLOUD_TOKEN" not in os.environ:
-            msg = (
-                "Missing Hetzner Cloud API token. Please expose "
-                "the HCLOUD_TOKEN environment variable with your "
-                "account API token value"
-            )
-            sysexit_with_message(msg)
 
     def reset(self):
         """Destroy all resources managed by this plugin."""
