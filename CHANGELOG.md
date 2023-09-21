@@ -1,15 +1,23 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
 ## [1.3.0] - 2021-09-02
 
-- See [here](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/1.3.0)
+Changes:
+
+- Remove deprecated molecule cache ([#35](https://github.com/ansible-community/molecule-hetznercloud/pull/35)) @ssbarnea
+- Remove duplicated playbook code ([#33](https://github.com/ansible-community/molecule-hetznercloud/pull/33)) @ekeih
+- Remove async for network deletion ([#30](https://github.com/ansible-community/molecule-hetznercloud/pull/30)) @ggggut
+- Typo fix ([#28](https://github.com/ansible-community/molecule-hetznercloud/pull/28)) @aminvakil
+
+Bugfixes:
+
+- Remove deprecated molecule cache ([#35](https://github.com/ansible-community/molecule-hetznercloud/pull/35)) @ssbarnea
+- Testing configuration cleanup ([#11](https://github.com/ansible-community/molecule-hetznercloud/pull/11)) @ssbarnea
+- Match API expectations ([#8](https://github.com/ansible-community/molecule-hetznercloud/pull/8)) @decentral1se
+- Allow Molecule to load the cookiecutter correctly ([#7](https://github.com/ansible-community/molecule-hetznercloud/pull/7)) @decentral1se
+- Fix CI ([#6](https://github.com/ansible-community/molecule-hetznercloud/pull/6)) @decentral1se
+- Add a missing entry point option to setup.cfg ([#5](https://github.com/ansible-community/molecule-hetznercloud/pull/5)) @tadeboro
+- Enabling Travis testing ([#1](https://github.com/ansible-community/molecule-hetznercloud/pull/1)) @decentral1se
 
 ## [1.2.1] - 2021-06-02
 

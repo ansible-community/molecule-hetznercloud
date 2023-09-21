@@ -1,16 +1,11 @@
 # Molecule Hetzner Cloud Plugin
 
-[![PyPI Package](https://badge.fury.io/py/molecule-hetznercloud.svg)](https://badge.fury.io/py/molecule-hetznercloud)
-[![Repository License](https://img.shields.io/badge/license-LGPL-brightgreen.svg)](LICENSE)
+[![PyPI Package](https://img.shields.io/pypi/v/molecule-hetznercloud)](https://pypi.org/project/molecule-hetznercloud/)
+[![License](https://img.shields.io/badge/license-LGPL-brightgreen.svg)](LICENSE)
 
-A [Hetzner Cloud](https://www.hetzner.com/cloud) plugin for [Molecule](https://molecule.readthedocs.io/en/latest/).
+A [Hetzner Cloud](https://www.hetzner.com/cloud) plugin for [Molecule](https://ansible.readthedocs.io/projects/molecule/).
 
-This plugin allows you to do `molecule init role myrolename -d hetznercloud`
-and have Molecule provision on-demand Hetzner Cloud VPSes of your choice for
-your integration testing. New VPSes will be automagically created and
-provisioned on each `molecule test` run, SSH keys are generated and managed
-internally and all resources are cleaned up regardless of whether the role
-under test succeeds or fails.
+This plugin allows you to use on-demand Hetzner Cloud servers for your molecule integration tests.
 
 ## Install
 
@@ -18,11 +13,9 @@ under test succeeds or fails.
 $ pip install molecule-hetznercloud
 ```
 
-If you're looking for a container approach, see [ansible-community/toolset](https://github.com/ansible-community/toolset).
-
 ## Upgrade
 
-Please see the [CHANGELOG.md](./CHANGELOG.md) for migration guides.
+Please see the [CHANGELOG.md](./CHANGELOG.md) for migration guides. This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ```bash
 $ pip install --upgrade molecule-hetznercloud
@@ -30,21 +23,19 @@ $ pip install --upgrade molecule-hetznercloud
 
 ## Usage
 
-You need to expose a `HCLOUD_TOKEN` environment variable in your environment.
-
-Find out more about how to get one of those [over here](https://docs.hetzner.cloud/#overview-authentication).
+To communicate with the Hetzner Cloud API, you need to expose a `HCLOUD_TOKEN` environment variable. Find out more about how to get a Hetzner Cloud API token in the [authentication documentation](https://docs.hetzner.cloud/#authentication).
 
 ```bash
-$ export HCLOUD_TOKEN=mycoolapitoken
+$ export HCLOUD_TOKEN="set_the_hcloud_token_here"
 ```
 
-Then create a role using the driver plugin.
+Then setup a new molecule scenario using the driver plugin.
 
 ```bash
-$ molecule init role myrolename -d molecule_hetznercloud
+$ molecule init scenario --driver-name molecule_hetznercloud
 ```
 
-Your `myrolename/molecule/default/molecule.yml` should then look like the following.
+Your `molecule/default/molecule.yml` should then look like the following.
 
 ```yaml
 ---
@@ -53,21 +44,78 @@ dependency:
 driver:
   name: molecule_hetznercloud
 platforms:
-  - name: instance
+  - # Name of the Server to create (must be unique per Project and a valid hostname as per RFC 1123).
+    # required
+    name: instance-1
+    # Name of the Image the Server is created from.
+    # required
+    image: debian 12
+    # Name of the Server type this Server should be created with.
+    # default: cx11
     server_type: cx11
-    image: debian-10
+    # Name of Location to create Server in (must not be used together with datacenter).
+    # default: omit
+    location: hel1
+    # Name of Datacenter to create Server in (must not be used together with location).
+    # default: omit
+    datacenter: null
+    # Cloud-Init user data to use during Server creation. This field is limited to 32KiB.
+    # default: omit
+    user_data: null
+
+    # List of volumes to attach to the server.
+    volumes:
+      - # Name of the volume.
+        # required
+        name: volume-1
+        # Size of the Volume in GB.
+        # default: 10
+        size: 10
+
+    # Dictionary of private networks the server should be attached to.
+    networks:
+      # Name of the network
+      network-1:
+        # IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918.
+        # required
+        ip_range: 10.0.0.0/16
+        subnet:
+          # IP to assign to the server.
+          # required
+          ip: 10.0.0.1/24
+          # Type of subnetwork.
+          # default: cloud
+          type: cloud
+          # Name of network zone.
+          # default: eu-central
+          network_zone: eu-central
+      network-2:
+        ip_range: 10.1.0.0/16
+        subnet:
+          ip: 10.1.0.1/24
+
 provisioner:
   name: ansible
 verifier:
   name: ansible
 ```
 
-Please see [docs.hetzner.cloud](https://docs.hetzner.cloud/) for information regarding images and server types.
+> ![NOTE] The `networks.ip_range` is important for creating. If you have multiple
+> hosts, you may only define it once.
 
-Then just run the role.
+> ![NOTE] You may list the server types and available images using the `hcloud` command line tool:
+>
+> ```bash
+> # List server types
+> $ hcloud server-type list --sort name
+> # List images for the x86 architecture
+> $ hcloud image list --type system --architecture x86 --sort name
+> ```
+
+Then just test the role.
 
 ```bash
-$ cd myrolename && molecule test
+$ molecule test
 ```
 
 To ease initial debugging for getting things started, also expose the following
@@ -78,113 +126,23 @@ $ export MOLECULE_NO_LOG=False  # not so verbose, helpful
 $ export MOLECULE_DEBUG=True  # very verbose, last ditch effort
 ```
 
-## Volume Handling
+## Develomement
 
-> **WARNING**: this feature appears to be broke. See [#24](https://github.com/ansible-community/molecule-hetznercloud/issues/24) for more
+### Testing
 
-It is possible to have the driver manage volumes during the test run. You can
-add the following stanza to your Molecule configuration to have Molecule create
-this volume for the managed VPS. This volume will be cleaned up after use.
+Run unit tests:
 
-```yaml
-platforms:
-  - name: instance
-    server_type: cx11
-    image: debian-10
-    volumes:
-      - name: "molecule-hetznercloud-volume-1-${INSTANCE_UUID}"
-        location: /foo/bar
-      - name: "molecule-hetznercloud-volume-2-${INSTANCE_UUID}"
-        size: 20
+```bash
+make test
 ```
 
-Supported keys are:
+Run integration tests
 
-- **name** (required): name of volume
-- **size** (optional, default: `10GB`): size of volume
-- **location** (optional, default: `omitted`): path for volume
-
-## Network Creation
-
-This Driver is able to generate networks and subnetworks during the test run.
-This can be useful for cluster tests. You can create networks with the
-following snippet:
-
-```yaml
-platforms:
-  - name: instance1
-    server_type: cx11
-    image: debian-10
-    networks:
-      test-network:
-        ip_range: 10.10.0.0/16
-        subnet:
-          ip: 10.10.10.1/24
-          type: cloud
-          network_zone: eu-central
-      test-network-2:
-        ip_range: 10.20.0.0/16
-        subnet:
-          ip: 10.20.10.1/24
-  - name: instance2
-    server_type: cx11
-    image: debian-10
-    networks:
-      test-network:
-        subnet:
-          ip: 10.10.10.2/24
+```bash
+export HCLOUD_TOKEN="SET_THE_HCLOUD_TOKEN_HERE"
+make integration
 ```
-
-The networks **ip_range** is only important for creating. If you have multiple
-hosts, it is okay to only define **ip_range** once. The supported keys are:
-
-- **networks**
-  - **ip_range** (required): ip range of network (usually `/16`)
-- **subnet**
-  - **ip** (required): ip that should be assigned to host (also generates subnetwork) - prefix mandatory
-  - **type** (optional, default: `cloud`): type of subnetwork
-  - **network_zone** (optional, default: `eu-central`): network zone of subnetwork
-
-## Only use `molecule.yml` for configuration
-
-It is being worked on that it is possible to remove all the files except the
-`molecule.yml` scenario file in your scenario directory. This is useful when
-you only require this plugin to do the default behaviour each time. It is also
-useful to reduce maintenance effort for migration of configurations. This
-plugin currently embeds the `create.yml` and `destroy.yml` playbooks. All other
-playbooks (e.g. prepare, cleanup) can be created as needed and Molecule will
-pick them up and run them. Embedding the `converge.yml` awaits [this feature
-request](https://github.com/ansible-community/molecule/issues/2675).
-
-## Change log
-
-See [CHANGELOG.md](./CHANGELOG.md).
-
-## Molecule Documentation
-
-> https://molecule.readthedocs.io
 
 ## License
 
 The [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html) license.
-
-## Testing
-
-### Unit
-
-```bash
-$ pip install tox
-$ tox -v
-```
-
-### Integration
-
-```
-git clone https://github.com/ansible-community/molecule-hetznercloud.git
-cd molecule-hetznercloud
-python3 -m venv .venv && source .venv/bin/activate
-pip install -e . "ansible<4" netaddr
-export INSTANCE_UUID=$(openssl rand -hex 5)
-export HCLOUD_TOKEN=YOURKEY
-cd integration && molecule test
-```
