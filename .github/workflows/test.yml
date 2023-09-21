@@ -27,3 +27,35 @@ jobs:
 
       - name: Run tox
         run: tox
+
+  integration:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
+    permissions:
+      id-token: write
+
+    name: Integration Python ${{ matrix.python-version }}
+    steps:
+      - uses: hetznercloud/tps-action@main
+
+      - uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: make venv
+
+      - name: Run integration tests
+        run: |
+          source venv/bin/activate
+          make integration
+        env:
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"

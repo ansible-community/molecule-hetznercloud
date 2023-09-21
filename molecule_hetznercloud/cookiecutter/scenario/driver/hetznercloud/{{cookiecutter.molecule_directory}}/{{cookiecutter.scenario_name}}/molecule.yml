@@ -2,27 +2,26 @@
 dependency:
   name: galaxy
 driver:
-  name: hetznercloud
+  name: molecule_hetznercloud
 platforms:
-  - name: "{{ cookiecutter.role_name }}"
+  - name: instance-1
+    image: debian-12
     server_type: cx11
-    image: debian-10
     volumes:
-      - name: "molecule-hetznercloud-volume-1"
+      - name: volume-1
+        size: 15
     networks:
-      molecule-hetznercloud-network-1:
+      network-1:
         ip_range: 10.10.0.0/16
         subnet:
           ip: 10.10.10.1/24
           type: cloud
           network_zone: eu-central
-      molecule-hetznercloud-network-2:
+      network-2:
         ip_range: 10.20.0.0/16
         subnet:
           ip: 10.20.10.1/24
 provisioner:
   name: ansible
-lint: |
-  set -e
-  yamllint .
-  ansible-lint .
+verifier:
+  name: ansible

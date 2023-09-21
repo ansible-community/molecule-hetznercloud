@@ -5,7 +5,7 @@ Hetzner Cloud plugin installation guide
 Requirements
 ============
 
-* Ansible >= 2.10
+* Ansible >= 2.13
 * ``HCLOUD_TOKEN`` exposed in your environment
 
 Install
@@ -14,3 +14,4 @@ Install
 .. code-block:: bash
 
     $ pip install molecule-hetznercloud
+    $ ansible-galaxy collection install hetzner.hcloud

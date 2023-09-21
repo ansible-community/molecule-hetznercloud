@@ -41,7 +41,7 @@ $ export HCLOUD_TOKEN=mycoolapitoken
 Then create a role using the driver plugin.
 
 ```bash
-$ molecule init role myrolename -d hetznercloud
+$ molecule init role myrolename -d molecule_hetznercloud
 ```
 
 Your `myrolename/molecule/default/molecule.yml` should then look like the following.
@@ -51,7 +51,7 @@ Your `myrolename/molecule/default/molecule.yml` should then look like the follow
 dependency:
   name: galaxy
 driver:
-  name: hetznercloud
+  name: molecule_hetznercloud
 platforms:
   - name: instance
     server_type: cx11

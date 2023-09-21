@@ -1,0 +1,130 @@
+{
+  "$id": "https://raw.githubusercontent.com/ansible-community/molecule/main/src/molecule/driver/driver.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "Molecule Hetzner Cloud Driver Schema",
+  "type": "object",
+  "required": ["driver"],
+  "properties": {
+    "driver": {
+      "title": "MoleculeDriverModel",
+      "type": "object",
+      "properties": {
+        "name": {
+          "enum": ["molecule_hetznercloud"],
+          "title": "Name",
+          "type": "string"
+        },
+        "options": {
+          "title": "MoleculeDriverOptionsModel",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ansible_connection_options": {
+              "title": "Ansible Connection Options",
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "login_cmd_template": {
+              "title": "Login Cmd Template",
+              "type": "string"
+            },
+            "managed": {
+              "title": "Managed",
+              "type": "boolean"
+            }
+          }
+        },
+        "safe_files": {
+          "items": {
+            "type": "string"
+          },
+          "title": "SafeFiles",
+          "type": "array"
+        },
+        "ssh_connection_options": {
+          "items": {
+            "type": "string"
+          },
+          "title": "SshConnectionOptions",
+          "type": "array"
+        }
+      },
+      "platforms": {
+        "title": "Platforms",
+        "type": "array",
+        "items": {
+          "title": "MoleculePlatformModel",
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["name", "image"],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string"
+            },
+            "server_type": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "datacenter": {
+              "type": "string"
+            },
+            "user_data": {
+              "type": "string"
+            },
+            "networks": {
+              "type": "object",
+              "required": ["subnet"],
+              "patternProperties": {
+                "^[a-zA-Z0-9-_]+$": {
+                  "ip_range": {
+                    "type": "string"
+                  },
+                  "subnet": {
+                    "type": "object",
+                    "required": ["ip"],
+                    "properties": {
+                      "ip": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "network_zone": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "volumes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
