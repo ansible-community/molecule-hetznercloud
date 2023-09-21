@@ -52,7 +52,7 @@
 
     - name: Create volume(s)
       hetzner.hcloud.hcloud_volume:
-        name: "{{ project_namespace }}-{{ item.name | default(item.server_name) }}"
+        name: "{{ project_namespace }}-{{ item.name }}"
         server: "{{ project_namespace }}-{{ item.server_name }}"
         size: "{{ item.size | default(10) }}"
         labels:

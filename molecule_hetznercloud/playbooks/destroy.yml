@@ -30,7 +30,7 @@
 
     - name: Destroy volume(s)
       hetzner.hcloud.hcloud_volume:
-        name: "{{ project_namespace }}-{{ item.1.name | default(item.0.instance) }}"
+        name: "{{ project_namespace }}-{{ item.1.name }}"
         state: absent
       loop: "{{ instance_conf | subelements('volumes', skip_missing=True) }}"
       register: volumes_jobs
