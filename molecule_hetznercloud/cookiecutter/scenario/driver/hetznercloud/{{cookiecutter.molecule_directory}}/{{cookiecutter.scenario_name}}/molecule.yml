@@ -4,23 +4,54 @@ dependency:
 driver:
   name: molecule_hetznercloud
 platforms:
-  - name: instance-1
-    image: debian-12
+  - # Name of the Server to create (must be unique per Project and a valid hostname as per RFC 1123).
+    # required
+    name: instance-1
+    # Name of the Image the Server is created from.
+    # required
+    image: debian 12
+    # Name of the Server type this Server should be created with.
+    # default: cx11
     server_type: cx11
+    # Name of Location to create Server in (must not be used together with datacenter).
+    # default: omit
+    location: hel1
+    # Name of Datacenter to create Server in (must not be used together with location).
+    # default: omit
+    datacenter: null
+    # Cloud-Init user data to use during Server creation. This field is limited to 32KiB.
+    # default: omit
+    user_data: null
+
+    # List of volumes to attach to the server.
     volumes:
-      - name: volume-1
-        size: 15
+      - # Name of the volume.
+        name: volume-1
+        # Size of the Volume in GB.
+        size: 10
+
+    # Dictionary of private networks the server should be attached to.
     networks:
+      # Name of the network
       network-1:
+        # IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918.
+        # required
         ip_range: 10.10.0.0/16
         subnet:
+          # IP to assign to the server.
+          # required
           ip: 10.10.10.1/24
+          # Type of subnetwork.
+          # default: cloud
           type: cloud
+          # Name of network zone.
+          # default: eu-central
           network_zone: eu-central
       network-2:
         ip_range: 10.20.0.0/16
         subnet:
           ip: 10.20.10.1/24
+
 provisioner:
   name: ansible
 verifier:
