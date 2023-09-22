@@ -11,10 +11,10 @@ ansible_collections: venv
 	venv/bin/ansible-galaxy collection install -r requirements.yml
 
 test: venv
-	venv/bin/pytest tests/functional tests/unit
+	venv/bin/tox -- tests/functional tests/unit
 
 integration: venv ansible_collections
-	venv/bin/pytest tests/integration
+	venv/bin/tox -- tests/integration
 
 clean:
 	git clean -xdf
