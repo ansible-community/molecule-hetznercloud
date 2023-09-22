@@ -3,6 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from shutil import copytree
 
+import pytest
+from molecule._version import version_tuple as molecule_version_tuple
 from molecule.util import run_command
 
 import molecule_hetznercloud
@@ -19,9 +21,13 @@ templates_path = (
 )
 
 
+@pytest.mark.skipif(
+    molecule_version_tuple >= (6, 0),
+    reason="molecule 6 removed support for custom templates from drivers ",
+)
 def test_command_init_scenario(tmp_path):
     role_name = "test_init_scenario"
-    scenario_name = "test_scenario"
+    scenario_name = "default"
 
     role_path = tmp_path / role_name
     copytree(fixtures_path / role_name, role_path)
@@ -32,7 +38,8 @@ def test_command_init_scenario(tmp_path):
             "init",
             "scenario",
             scenario_name,
-            "--driver-name=molecule_hetznercloud",
+            "--driver-name",
+            "molecule_hetznercloud",
         ]
         result = run_command(cmd)
         assert result.returncode == 0

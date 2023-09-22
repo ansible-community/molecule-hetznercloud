@@ -10,9 +10,8 @@ platforms:
     image: debian-12
     volumes:
       - name: volume-1
-      - size: 20
-  - name: instance-2
-    image: centos-stream-9
+      - name: volume-2
+        size: 20
 
 provisioner:
   name: ansible
