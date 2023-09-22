@@ -35,6 +35,9 @@ Then setup a new molecule scenario using the driver plugin.
 $ molecule init scenario --driver-name molecule_hetznercloud
 ```
 
+> ![WARNING] This only works with molecule <6.0.0, please configure the `molecule.yml` by hand.
+> See [this commit](https://github.com/ansible/molecule/commit/21dcd2bb7e8e9002be8bbc19de3e66ec3ce586f1) for details.
+
 Your `molecule/default/molecule.yml` should then look like the following.
 
 ```yaml
