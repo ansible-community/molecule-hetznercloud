@@ -1,6 +1,4 @@
 ---
-dependency:
-  name: galaxy
 driver:
   name: molecule_hetznercloud
 platforms:
@@ -51,8 +49,3 @@ platforms:
         ip_range: 10.20.0.0/16
         subnet:
           ip: 10.20.10.1/24
-
-provisioner:
-  name: ansible
-verifier:
-  name: ansible
