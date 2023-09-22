@@ -1,11 +1,22 @@
 from __future__ import annotations
 
+from pathlib import Path
 from shutil import copytree
 
 from molecule.util import run_command
 
+import molecule_hetznercloud
+
 from ..conftest import change_dir
 from .fixtures import here as fixtures_path
+
+here = Path(__file__).parent
+
+package_path = Path(molecule_hetznercloud.__file__).parent
+templates_path = (
+    package_path
+    / "cookiecutter/{{cookiecutter.molecule_directory}}/{{cookiecutter.scenario_name}}"
+)
 
 
 def test_command_init_scenario(tmp_path):
@@ -21,15 +32,17 @@ def test_command_init_scenario(tmp_path):
             "init",
             "scenario",
             scenario_name,
-            "--driver-name",
-            "molecule_hetznercloud",
+            "--driver-name=molecule_hetznercloud",
         ]
         result = run_command(cmd)
         assert result.returncode == 0
 
     scenario_path = role_path / "molecule" / scenario_name
+    molecule_path = scenario_path / "molecule.yml"
+    converge_path = scenario_path / "converge.yml"
+
     assert scenario_path.is_dir()
-    assert (scenario_path / "molecule.yml").is_file()
-    assert (scenario_path / "destroy.yml").is_file()
-    assert (scenario_path / "converge.yml").is_file()
-    assert (scenario_path / "create.yml").is_file()
+    assert molecule_path.is_file()
+    assert converge_path.is_file()
+
+    assert molecule_path.read_text() == (templates_path / "molecule.yml").read_text()

@@ -64,10 +64,10 @@ class HetznerCloud(Driver):
             return {}
 
     def template_dir(self):
-        return os.path.join(
-            os.path.dirname(__file__),
-            f"cookiecutter/scenario/driver/{self.name}",
-        )
+        """
+        Return the path to the cookiecutter templates.
+        """
+        return os.path.join(os.path.dirname(__file__), "cookiecutter")
 
     def _get_instance_config(self, instance_name):
         instance_config_dict = util.safe_load_file(self._config.driver.instance_config)
