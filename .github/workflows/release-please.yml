@@ -16,3 +16,6 @@ jobs:
           token: ${{ secrets.HCLOUD_BOT_TOKEN }}
           release-type: python
           package-name: molecule-hetznercloud
+
+          extra-files: |
+            molecule_hetznercloud/_version.py

@@ -3,10 +3,5 @@ profile = "black"
 combine_as_imports = true
 
 [build-system]
-requires = [
-  "setuptools >= 46.1.3",
-  "setuptools_scm >= 3.5.0",
-  "setuptools_scm_git_archive >= 1.1",
-  "wheel",
-]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
