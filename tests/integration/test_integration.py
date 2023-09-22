@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 
 from pytest_ansible.molecule import MoleculeScenario

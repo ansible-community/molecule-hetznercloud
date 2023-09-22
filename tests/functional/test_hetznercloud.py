@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from shutil import copytree
 
 from molecule.util import run_command
