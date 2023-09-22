@@ -143,6 +143,12 @@ export HCLOUD_TOKEN="SET_THE_HCLOUD_TOKEN_HERE"
 make integration
 ```
 
+## History
+
+The project was initially maintained by [@decentral1se](https://github.com/decentral1se). After a long period [looking for new maintainers](https://github.com/ansible-community/molecule-hetznercloud/issues/43), the project was archived in early 2023.
+
+In September 2023, the code has been rewritten by [@jooola](https://github.com/jooola) and the project was reactivated to continue development.
+
 ## License
 
 The [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html) license.
