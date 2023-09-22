@@ -1,9 +1,9 @@
-# Molecule Hetzner Cloud Plugin
+# Molecule Hetzner Cloud Driver
 
 [![PyPI Package](https://img.shields.io/pypi/v/molecule-hetznercloud)](https://pypi.org/project/molecule-hetznercloud/)
 [![License](https://img.shields.io/badge/license-LGPL-brightgreen.svg)](LICENSE)
 
-A [Hetzner Cloud](https://www.hetzner.com/cloud) plugin for [Molecule](https://ansible.readthedocs.io/projects/molecule/).
+A [Hetzner Cloud](https://www.hetzner.com/cloud) driver for [Molecule](https://ansible.readthedocs.io/projects/molecule/).
 
 This plugin allows you to use on-demand Hetzner Cloud servers for your molecule integration tests.
 
