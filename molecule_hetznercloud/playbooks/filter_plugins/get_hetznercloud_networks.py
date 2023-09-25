@@ -15,7 +15,6 @@ def get_hetznercloud_networks(data, request):
     subnetwork_list = []
 
     if request == "networks":
-
         for platform in data:
             if "networks" in platform:
                 for network_name, values in platform["networks"].items():
@@ -31,7 +30,6 @@ def get_hetznercloud_networks(data, request):
         return [x for x in network_list.values()]
 
     elif request == "subnetworks":
-
         for platform in data:
             name = platform["name"]
             if "networks" in platform:
