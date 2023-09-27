@@ -23,7 +23,7 @@ $ pip install --upgrade molecule-hetznercloud
 
 ### Upgrading to v2
 
-- In your `molecule.yml` files, rename the molecule driver name to `molecule_hetznercloud`:
+- In your `molecule.yml` files, rename the molecule driver name (`driver.name`) to `molecule_hetznercloud`:
 
 ```patch
  # ...
@@ -35,7 +35,7 @@ $ pip install --upgrade molecule-hetznercloud
 
 - Each resource (servers, volumes, networks) name are prefixed with a hash based on the role and scenario path. This means you MAY reuse the same names (e.g. `instance-1`) across your scenarios.
 
-- In your `molecule.yml` files, the `platforms[].server_type` field now defaults to `cx11`. If you already use the default, you MAY remove the field:
+- In your `molecule.yml` files, the platforms server type (`platforms[].server_type`) field now defaults to `cx11`. If you already use the default, you MAY remove the field:
 
 ```patch
  # ...
@@ -46,7 +46,7 @@ $ pip install --upgrade molecule-hetznercloud
  # ...
 ```
 
-- In your `molecule.yml` files, the `platforms[].volumes[].name` field is now required. If the field is missing, make sure to add it:
+- In your `molecule.yml` files, the volumes name (`platforms[].volumes[].name`) field is now required. If the field is missing, you MUST add it:
 
 ```patch
  # ...
