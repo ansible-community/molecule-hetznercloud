@@ -36,7 +36,6 @@ def get_hetznercloud_subnetworks(platforms: list[dict]) -> list[dict]:
             continue
 
         for network_name, network in platform["networks"].items():
-            network["name"] = network_name
             if "subnet" in network:
                 network["subnet"]["server_name"] = platform["name"]
                 network["subnet"]["network_name"] = network_name
