@@ -53,7 +53,7 @@ platforms:
     name: instance-1
     # Name of the Image the Server is created from.
     # required
-    image: debian 12
+    image: debian-12
     # Name of the Server type this Server should be created with.
     # default: cx11
     server_type: cx11
