@@ -4,6 +4,7 @@ import os
 
 from molecule import logger, util
 from molecule.api import Driver
+from molecule.util import sysexit_with_message
 
 log = logger.get_logger(__name__)
 
@@ -84,9 +85,14 @@ class HetznerCloud(Driver):
         daemon is running and we have the correct Docker Python dependency.
         Each driver implementation can decide what is the most stable sanity
         check for itself.
-
-        :returns: None
         """
+
+        if os.environ.get("HCLOUD_TOKEN", "") == "":
+            msg = (
+                "Missing Hetzner Cloud API token. Please expose the Hetzner Cloud API "
+                "token in the HCLOUD_TOKEN environment variable."
+            )
+            sysexit_with_message(msg)
 
     def reset(self):
         """Release all resources owned by molecule.
