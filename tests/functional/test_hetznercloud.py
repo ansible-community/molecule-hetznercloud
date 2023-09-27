@@ -23,7 +23,7 @@ templates_path = (
 
 @pytest.mark.skipif(
     molecule_version_tuple >= (6, 0),
-    reason="molecule 6 removed support for custom templates from drivers ",
+    reason="molecule 6 removed support for custom templates from drivers",
 )
 def test_command_init_scenario(tmp_path):
     role_name = "test_init_scenario"
