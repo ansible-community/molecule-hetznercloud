@@ -23,7 +23,8 @@
           "additionalProperties": false,
           "properties": {
             "name": {
-              "type": "string"
+              "type": "string",
+              "maxLength": "30"
             },
             "image": {
               "type": "string"
