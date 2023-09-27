@@ -31,17 +31,6 @@ $ pip install --upgrade molecule-hetznercloud
 +  name: molecule_hetznercloud
 ```
 
-- Each resource (servers, volumes, networks) name are prefixed with a hash based on the role and scenario path. This means you MAY reuse the same names (e.g. `instance-1`) across your scenarios.
-
-- In your `molecule.yml` files, the platforms server type (`platforms[].server_type`) field now defaults to `cx11`. If you already use the default, you MAY remove the field:
-
-```patch
- platforms:
-   - name: instance-1
-     image: debian-12
--    server_type: cx11
-```
-
 - In your `molecule.yml` files, the volumes name (`platforms[].volumes[].name`) field is now required. If the field is missing, you MUST add it:
 
 ```patch
@@ -52,6 +41,17 @@ $ pip install --upgrade molecule-hetznercloud
 -     - size: 20
 +     - name: volume-1
 +       size: 20
+```
+
+- Each resource (servers, volumes, networks) name are prefixed with a hash based on the role and scenario path. This means you MAY reuse the same names (e.g. `instance-1`) across your scenarios.
+
+- In your `molecule.yml` files, the platforms server type (`platforms[].server_type`) field now defaults to `cx11`. If you already use the default, you MAY remove the field:
+
+```patch
+ platforms:
+   - name: instance-1
+     image: debian-12
+-    server_type: cx11
 ```
 
 ## Usage
