@@ -5,7 +5,7 @@
   gather_facts: false
   no_log: "{{ molecule_no_log }}"
   vars:
-    resource_namespace: "{{ molecule_ephemeral_directory | md5 }}"
+    resource_namespace: "{{ molecule_scenario_directory | md5 }}"
 
     ssh_port: 22
     ssh_user: root
