@@ -21,6 +21,31 @@ Please see the [CHANGELOG.md](./CHANGELOG.md) for migration guides. This project
 $ pip install --upgrade molecule-hetznercloud
 ```
 
+### Upgrading to v2
+
+- In your `molecule.yml` files, rename the molecule driver name to `molecule_hetznercloud`:
+
+```patch
+ # ...
+ driver:
+-  name: hetznercloud
++  name: molecule_hetznercloud
+ # ...
+```
+
+- Each resource (servers, volumes, networks) name are prefixed with a hash based on the role and scenario path. This means you MAY reuse the same names (e.g. `instance-1`) across your scenarios.
+
+- In your `molecule.yml` files, the `platforms[].server_type` field now defaults to `cx11`. If you already use the default, you MAY remove the field:
+
+```patch
+ # ...
+ platforms:
+   - name: instance-1
+     image: debian-12
+-    server_type: cx11
+ # ...
+```
+
 ## Usage
 
 To communicate with the Hetzner Cloud API, you need to expose a `HCLOUD_TOKEN` environment variable. Find out more about how to get a Hetzner Cloud API token in the [authentication documentation](https://docs.hetzner.cloud/#authentication).
