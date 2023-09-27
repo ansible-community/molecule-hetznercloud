@@ -69,7 +69,7 @@ $ molecule init scenario --driver-name molecule_hetznercloud
 ```
 
 > [!WARNING]
-> With molecule 6, the `molecule init scenario` command dropped support for driver provided configuration. If you are using molecule >=6, please copy the `molecule.yml` file example below.
+> With molecule 6, the `molecule init scenario` command dropped support for driver provided configuration. If you are using molecule >=6, please copy the example below and paste it in your scenario `molecule.yml` file.
 > See [this commit](https://github.com/ansible/molecule/commit/21dcd2bb7e8e9002be8bbc19de3e66ec3ce586f1) for details.
 
 Your `molecule/default/molecule.yml` should then look like the following.
