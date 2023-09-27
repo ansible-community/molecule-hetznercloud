@@ -46,6 +46,20 @@ $ pip install --upgrade molecule-hetznercloud
  # ...
 ```
 
+- In your `molecule.yml` files, the `platforms[].volumes[].name` field is now required. If the field is missing, make sure to add it:
+
+```patch
+ # ...
+ platforms:
+   - name: instance-1
+     image: debian-12
+     volumes:
+-     - size: 20
++     - name: volume-1
++       size: 20
+ # ...
+```
+
 ## Usage
 
 To communicate with the Hetzner Cloud API, you need to expose a `HCLOUD_TOKEN` environment variable. Find out more about how to get a Hetzner Cloud API token in the [authentication documentation](https://docs.hetzner.cloud/#authentication).
