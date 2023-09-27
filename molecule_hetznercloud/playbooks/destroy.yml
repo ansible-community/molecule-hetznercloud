@@ -5,7 +5,7 @@
   gather_facts: false
   no_log: "{{ molecule_no_log }}"
   vars:
-    project_namespace: "molecule-{{ molecule_ephemeral_directory | to_uuid }}"
+    resource_namespace: "molecule-{{ molecule_ephemeral_directory | to_uuid }}"
   tasks:
     - name: Populate the instance config
       ansible.builtin.set_fact:
@@ -13,7 +13,7 @@
 
     - name: Destroy server(s)
       hetzner.hcloud.hcloud_server:
-        name: "{{ project_namespace }}-{{ item.instance }}"
+        name: "{{ resource_namespace }}-{{ item.instance }}"
         state: absent
       register: servers_jobs
       loop: "{{ instance_conf }}"
@@ -30,7 +30,7 @@
 
     - name: Destroy volume(s)
       hetzner.hcloud.hcloud_volume:
-        name: "{{ project_namespace }}-{{ item.1.name }}"
+        name: "{{ resource_namespace }}-{{ item.1.name }}"
         state: absent
       loop: "{{ instance_conf | subelements('volumes', skip_missing=True) }}"
       register: volumes_jobs
@@ -47,7 +47,7 @@
 
     - name: Destroy network(s)
       hetzner.hcloud.hcloud_network:
-        name: "{{ project_namespace }}-{{ item.1.name }}"
+        name: "{{ resource_namespace }}-{{ item.1.name }}"
         state: absent
       loop: "{{ instance_conf | subelements('networks', skip_missing=True) }}"
       register: networks

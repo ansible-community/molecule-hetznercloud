@@ -5,12 +5,12 @@
   gather_facts: false
   no_log: "{{ molecule_no_log }}"
   vars:
-    project_namespace: "molecule-{{ molecule_ephemeral_directory | to_uuid }}"
+    resource_namespace: "molecule-{{ molecule_ephemeral_directory | to_uuid }}"
 
     ssh_port: 22
     ssh_user: root
     ssh_key_path: "{{ molecule_ephemeral_directory }}/ssh_key"
-    ssh_key_name: "{{ project_namespace }}"
+    ssh_key_name: "{{ resource_namespace }}"
   tasks:
     - name: Create SSH key
       community.crypto.openssh_keypair:
@@ -22,12 +22,12 @@
         name: "{{ ssh_key_name }}"
         public_key: "{{ generated_ssh_key.public_key }}"
         labels:
-          molecule: "{{ project_namespace }}"
+          molecule: "{{ resource_namespace }}"
         state: present
 
     - name: Create server(s)
       hetzner.hcloud.hcloud_server:
-        name: "{{ project_namespace }}-{{ item.name }}"
+        name: "{{ resource_namespace }}-{{ item.name }}"
         image: "{{ item.image }}"
         server_type: "{{ item.server_type | default('cx11') }}"
         ssh_keys: ["{{ ssh_key_name }}"]
@@ -35,7 +35,7 @@
         datacenter: "{{ item.datacenter | default(omit) }}"
         user_data: "{{ item.user_data | default(omit) }}"
         labels:
-          molecule: "{{ project_namespace }}"
+          molecule: "{{ resource_namespace }}"
         state: started
       loop: "{{ molecule_yml.platforms }}"
       register: servers_jobs
@@ -52,26 +52,26 @@
 
     - name: Create volume(s)
       hetzner.hcloud.hcloud_volume:
-        name: "{{ project_namespace }}-{{ item.name }}"
-        server: "{{ project_namespace }}-{{ item.server_name }}"
+        name: "{{ resource_namespace }}-{{ item.name }}"
+        server: "{{ resource_namespace }}-{{ item.server_name }}"
         size: "{{ item.size | default(10) }}"
         labels:
-          molecule: "{{ project_namespace }}"
+          molecule: "{{ resource_namespace }}"
         state: present
       loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_volumes() }}"
 
     - name: Create network(s)
       hetzner.hcloud.hcloud_network:
-        name: "{{ project_namespace }}-{{ item.name }}"
+        name: "{{ resource_namespace }}-{{ item.name }}"
         ip_range: "{{ item.ip_range | default(omit) }}"
         labels:
-          molecule: "{{ project_namespace }}"
+          molecule: "{{ resource_namespace }}"
         state: present
       loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_networks() }}"
 
     - name: Create subnetwork(s) # noqa jinja[invalid]
       hetzner.hcloud.hcloud_subnetwork:
-        network: "{{ project_namespace }}-{{ item.network_name }}"
+        network: "{{ resource_namespace }}-{{ item.network_name }}"
         ip_range: "{{ item.ip | ansible.utils.ipaddr('network/prefix') }}"
         network_zone: "{{ item.network_zone | default('eu-central') }}"
         type: "{{ item.type | default('cloud') }}"
@@ -80,8 +80,8 @@
 
     - name: Attach server to subnetwork(s) # noqa jinja[invalid]
       hetzner.hcloud.hcloud_server_network:
-        network: "{{ project_namespace }}-{{ item.network_name }}"
-        server: "{{ project_namespace }}-{{ item.server_name }}"
+        network: "{{ resource_namespace }}-{{ item.network_name }}"
+        server: "{{ resource_namespace }}-{{ item.server_name }}"
         ip: "{{ item.ip | ansible.utils.ipaddr('address') }}"
         state: present
       loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_subnetworks() }}"
