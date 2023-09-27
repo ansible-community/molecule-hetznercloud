@@ -65,6 +65,7 @@ setup(
     package_data={
         "": [
             "**/*.json",
+            "**/*.py",
             "**/*.rst",
             "**/*.yml",
         ]
