@@ -12,34 +12,7 @@
           "enum": ["molecule_hetznercloud"]
         },
         "options": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "ansible_connection_options": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "login_cmd_template": {
-              "type": "string"
-            },
-            "managed": {
-              "type": "boolean"
-            }
-          }
-        },
-        "safe_files": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "ssh_connection_options": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
+          "type": "object"
         }
       },
       "platforms": {
