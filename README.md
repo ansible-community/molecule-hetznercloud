@@ -36,7 +36,7 @@ $ molecule init scenario --driver-name molecule_hetznercloud
 ```
 
 > [!WARNING]
-> With molecule 6, the `molecule init scenario` command dropped support for driver provided configuration. If you ar using molecule >=6, please configure the `molecule.yml` file by hand.
+> With molecule 6, the `molecule init scenario` command dropped support for driver provided configuration. If you are using molecule >=6, please copy the `molecule.yml` file example below.
 > See [this commit](https://github.com/ansible/molecule/commit/21dcd2bb7e8e9002be8bbc19de3e66ec3ce586f1) for details.
 
 Your `molecule/default/molecule.yml` should then look like the following.
@@ -118,7 +118,7 @@ verifier:
 > $ hcloud image list --type system --architecture x86 --sort name
 > ```
 
-Then just test the role.
+Then test your role.
 
 ```bash
 $ molecule test
@@ -132,7 +132,7 @@ $ export MOLECULE_NO_LOG=False  # not so verbose, helpful
 $ export MOLECULE_DEBUG=True  # very verbose, last ditch effort
 ```
 
-## Develomement
+## Development
 
 ### Testing
 
@@ -145,7 +145,7 @@ make test
 Run integration tests
 
 ```bash
-export HCLOUD_TOKEN="SET_THE_HCLOUD_TOKEN_HERE"
+export HCLOUD_TOKEN="set_the_hcloud_token_here"
 make integration
 ```
 
