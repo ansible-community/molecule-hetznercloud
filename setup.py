@@ -61,8 +61,15 @@ setup(
             "pytest-ansible>=4.1.0,<5.0",
         ],
     },
-    include_package_data=True,
     packages=find_packages(exclude=["tests*"]),
+    package_data={
+        "": [
+            "**/*.json",
+            "**/*.rst",
+            "**/*.yml",
+        ]
+    },
+    include_package_data=True,
     zip_safe=False,
     entry_points={
         "molecule.driver": [
