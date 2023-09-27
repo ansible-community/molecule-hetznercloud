@@ -7,7 +7,7 @@ on:
 jobs:
   release-please:
     # The secret HCLOUD_BOT_TOKEN is only available on the main repo, not in forks.
-    if: github.repository == 'hetznercloud/molecule-hetznercloud'
+    if: github.repository == 'ansible-community/molecule-hetznercloud'
 
     runs-on: ubuntu-latest
     steps:
