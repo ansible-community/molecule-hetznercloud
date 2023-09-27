@@ -4,7 +4,6 @@ import os
 
 from molecule import logger, util
 from molecule.api import Driver
-from molecule.util import sysexit_with_message
 
 log = logger.get_logger(__name__)
 
@@ -92,7 +91,7 @@ class HetznerCloud(Driver):
                 "Missing Hetzner Cloud API token. Please expose the Hetzner Cloud API "
                 "token in the HCLOUD_TOKEN environment variable."
             )
-            sysexit_with_message(msg)
+            util.sysexit_with_message(msg)
 
     def reset(self):
         """Release all resources owned by molecule.
