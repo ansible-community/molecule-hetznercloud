@@ -15,7 +15,7 @@ $ pip install molecule-hetznercloud
 
 ## Upgrade
 
-Please see the [CHANGELOG.md](./CHANGELOG.md) for migration guides. This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ```bash
 $ pip install --upgrade molecule-hetznercloud
