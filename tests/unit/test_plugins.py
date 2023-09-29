@@ -35,6 +35,7 @@ from molecule_hetznercloud.playbooks.filter_plugins.get_platforms_data import (
             [
                 {
                     "ip": "10.10.10.1/24",
+                    "type": "cloud",
                     "server_name": "instance-1",
                     "network_name": "network-1",
                 }
@@ -76,11 +77,13 @@ from molecule_hetznercloud.playbooks.filter_plugins.get_platforms_data import (
             [
                 {
                     "ip": "10.10.10.1/24",
+                    "type": "cloud",
                     "server_name": "instance-1",
                     "network_name": "network-1",
                 },
                 {
                     "ip": "10.10.10.2/24",
+                    "type": "cloud",
                     "network_name": "network-1",
                     "server_name": "instance-2",
                 },

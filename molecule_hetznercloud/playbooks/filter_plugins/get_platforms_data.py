@@ -39,6 +39,11 @@ def get_hetznercloud_subnetworks(platforms: list[dict]) -> list[dict]:
             if "subnet" in network:
                 network["subnet"]["server_name"] = platform["name"]
                 network["subnet"]["network_name"] = network_name
+
+                # Filtering the subnets by 'type' requires the value to be defined
+                if "type" not in network["subnet"]:
+                    network["subnet"]["type"] = "cloud"
+
                 all_subnetworks.append(network["subnet"])
 
     return all_subnetworks
