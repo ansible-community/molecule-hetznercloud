@@ -113,7 +113,7 @@
             content: |
               # Molecule managed
 
-              {{ instance_conf | to_json | from_json | to_yaml }}
+              {{ instance_conf | to_yaml }}
             dest: "{{ molecule_instance_config }}"
             mode: "0600"
 
