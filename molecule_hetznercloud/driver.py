@@ -1,17 +1,17 @@
+from __future__ import annotations
+
 import os
 
-from ansible_compat.ports import cache
 from molecule import logger, util
 from molecule.api import Driver
-from molecule.util import sysexit_with_message
 
 log = logger.get_logger(__name__)
 
 
 class HetznerCloud(Driver):
     def __init__(self, config=None):
-        super(HetznerCloud, self).__init__(config)
-        self._name = "hetznercloud"
+        super().__init__(config)
+        self._name = "molecule_hetznercloud"
 
     @property
     def name(self):
@@ -26,48 +26,48 @@ class HetznerCloud(Driver):
         connection_options = " ".join(self.ssh_connection_options)
 
         return (
-            "ssh {{address}} "
-            "-l {{user}} "
-            "-p {{port}} "
-            "-i {{identity_file}} "
-            "{}"
-        ).format(connection_options)
+            "ssh {address} "
+            "-l {user} "
+            "-p {port} "
+            "-i {identity_file} "
+            f"{connection_options}"
+        )
 
     @property
     def default_safe_files(self):
-        return [self.instance_config]
+        return [self.instance_config, "ssh_key"]
 
     @property
     def default_ssh_connection_options(self):
         return self._get_ssh_connection_options()
 
     def login_options(self, instance_name):
-        d = {"instance": instance_name}
+        config = {"instance": instance_name}
 
-        return util.merge_dicts(d, self._get_instance_config(instance_name))
+        return util.merge_dicts(config, self._get_instance_config(instance_name))
 
     def ansible_connection_options(self, instance_name):
         try:
-            d = self._get_instance_config(instance_name)
+            config = self._get_instance_config(instance_name)
 
             return {
-                "ansible_user": d["user"],
-                "ansible_host": d["address"],
-                "ansible_port": d["port"],
-                "ansible_private_key_file": d["identity_file"],
+                "ansible_user": config["user"],
+                "ansible_host": config["address"],
+                "ansible_port": config["port"],
+                "ansible_private_key_file": config["identity_file"],
                 "connection": "ssh",
                 "ansible_ssh_common_args": " ".join(self.ssh_connection_options),
             }
         except StopIteration:
             return {}
-        except IOError:
+        except OSError:
             return {}
 
     def template_dir(self):
-        return os.path.join(
-            os.path.dirname(__file__),
-            "cookiecutter/scenario/driver/{}".format(self.name),
-        )
+        """
+        Return the path to the cookiecutter templates.
+        """
+        return os.path.join(os.path.dirname(__file__), "cookiecutter")
 
     def _get_instance_config(self, instance_name):
         instance_config_dict = util.safe_load_file(self._config.driver.instance_config)
@@ -76,31 +76,30 @@ class HetznerCloud(Driver):
             item for item in instance_config_dict if item["instance"] == instance_name
         )
 
-    @cache
-    def sanity_checks(self):
-        """Hetzner Cloud driver sanity checks."""
+    def sanity_checks(self) -> None:
+        """Confirm that driver is usable.
 
-        log.info("Sanity checks: '{}'".format(self._name))
+        Sanity checks to ensure the driver can do work successfully. For
+        example, when using the Docker driver, we want to know that the Docker
+        daemon is running and we have the correct Docker Python dependency.
+        Each driver implementation can decide what is the most stable sanity
+        check for itself.
+        """
 
-        try:
-            import hcloud  # noqa
-        except ImportError:
+        if os.environ.get("HCLOUD_TOKEN", "") == "":
             msg = (
-                "Missing Hetzner Cloud driver dependency. Please "
-                "install the 'molecule-hetznercloud' package or "
-                "refer to your INSTALL.rst driver documentation file"
+                "Missing Hetzner Cloud API token. Please expose the Hetzner Cloud API "
+                "token in the HCLOUD_TOKEN environment variable."
             )
-            sysexit_with_message(msg)
-
-        if "HCLOUD_TOKEN" not in os.environ:
-            msg = (
-                "Missing Hetzner Cloud API token. Please expose "
-                "the HCLOUD_TOKEN environment variable with your "
-                "account API token value"
-            )
-            sysexit_with_message(msg)
+            util.sysexit_with_message(msg)
 
     def reset(self):
-        """Destroy all resources managed by this plugin."""
-        # TODO(decentral1se): implement if ever needed
-        pass
+        """Release all resources owned by molecule.
+
+        This is a destructive operation that would affect all resources managed
+        by molecule, regardless the scenario name.  Molecule will use metadata
+        like labels or tags to annotate resources allocated by it.
+        """
+
+    def schema_file(self):
+        return os.path.join(os.path.dirname(__file__), "driver.json")

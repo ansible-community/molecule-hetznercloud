@@ -1,0 +1,4 @@
+---
+- name: Debug output
+  ansible.builtin.debug:
+    msg: "{{ ansible_hostname }}"

@@ -1,0 +1,63 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
+    name: Python ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          make venv
+          venv/bin/pip install tox tox-gh-actions
+
+      - name: Run tests
+        run: make test
+
+  integration:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
+    permissions:
+      id-token: write
+
+    name: Integration Python ${{ matrix.python-version }}
+    steps:
+      - uses: hetznercloud/tps-action@main
+
+      - uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          make venv
+          venv/bin/pip install tox tox-gh-actions
+
+      - name: Run integrations
+        run: make integration
+        env:
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"

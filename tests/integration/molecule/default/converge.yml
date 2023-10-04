@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Include integration
+      ansible.builtin.include_role:
+        name: integration

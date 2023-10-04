@@ -4,84 +4,69 @@
   connection: local
   gather_facts: false
   no_log: "{{ molecule_no_log }}"
+  vars:
+    resource_namespace: "{{ molecule_scenario_directory | md5 }}"
   tasks:
     - name: Populate the instance config
-      set_fact:
-        instance_conf: "{{ lookup('file', molecule_instance_config, errors='warn') | from_yaml }}"
-        skip_instances: false
-      register: instance_config_lookup
+      ansible.builtin.set_fact:
+        instance_conf: "{{ lookup('file', molecule_instance_config, errors='warn') | from_yaml | default([], true) }}"
 
-    - name: Populate instance config when file missing
-      set_fact:
-        instance_conf: {}
-        skip_instances: true
-      when: not instance_config_lookup.ansible_facts.instance_conf
-
-    - name: Destroy molecule instance(s)
-      hcloud_server:
-        name: "{{ item.instance }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+    - name: Destroy server(s)
+      hetzner.hcloud.hcloud_server:
+        name: "{{ resource_namespace }}-{{ item.instance }}"
         state: absent
-      register: server
-      with_items: "{{ instance_conf }}"
-      when: not skip_instances
+      register: servers_jobs
+      loop: "{{ instance_conf }}"
       async: 7200
       poll: 0
 
-    - name: Wait for instance(s) deletion to complete
-      async_status:
+    - name: Wait for server(s) deletion to complete
+      ansible.builtin.async_status:
         jid: "{{ item.ansible_job_id }}"
-      register: hetzner_jobs
-      until: hetzner_jobs.finished
+      loop: "{{ servers_jobs.results }}"
+      register: servers
+      until: servers is finished
       retries: 300
-      with_items: "{{ server.results }}"
 
     - name: Destroy volume(s)
-      hcloud_volume:
-        name: "{{ item.volumes.name | default(item.instance) }}"
-        server: "{{ item.instance }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+      hetzner.hcloud.hcloud_volume:
+        name: "{{ resource_namespace }}-{{ item.1.name }}"
         state: absent
-      register: volumes
-      with_items: "{{ instance_conf }}"
+      loop: "{{ instance_conf | subelements('volumes', skip_missing=True) }}"
+      register: volumes_jobs
       async: 7200
       poll: 0
 
     - name: Wait for volume(s) deletion to complete
-      async_status:
+      ansible.builtin.async_status:
         jid: "{{ item.ansible_job_id }}"
-      register: hetzner_volumes
-      until: hetzner_volumes.finished
+      loop: "{{ volumes_jobs.results }}"
+      register: volumes
+      until: volumes is finished
       retries: 300
-      when: volumes.changed
-      with_items: "{{ volumes.results }}"
 
     - name: Destroy network(s)
-      hcloud_network:
-        name: "{{ item.1.name }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+      hetzner.hcloud.hcloud_network:
+        name: "{{ resource_namespace }}-{{ item.1.name }}"
         state: absent
+      loop: "{{ instance_conf | subelements('networks', skip_missing=True) }}"
       register: networks
-      loop: "{{ instance_conf|subelements('networks', skip_missing=True) }}"
 
     - name: Remove registered SSH key
-      hcloud_ssh_key:
+      when: instance_conf | length
+      hetzner.hcloud.hcloud_ssh_key:
         name: "{{ instance_conf[0].ssh_key_name }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
         state: absent
-      when:
-        - not skip_instances
-        - instance_conf | length  # must contain at least one instance
 
     - name: Populate instance config
-      set_fact:
-        instance_conf: {}
+      ansible.builtin.set_fact:
+        instance_conf: []
 
     - name: Dump instance config
-      copy:
+      ansible.builtin.copy:
         content: |
           # Molecule managed
 
-          {{ instance_conf | to_json | from_json | to_yaml }}
+          {{ instance_conf | to_yaml }}
         dest: "{{ molecule_instance_config }}"
-      when: server.changed | bool
+        mode: "0600"

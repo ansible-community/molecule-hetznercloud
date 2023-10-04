@@ -1,0 +1,42 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: molecule_hetznercloud
+
+platforms:
+  - name: instance-1
+    image: debian-12
+    networks:
+      shared:
+        ip_range: 10.10.0.0/16
+        subnet:
+          ip: 10.10.10.1/24
+          type: cloud
+          network_zone: eu-central
+      isolated:
+        ip_range: 10.20.0.0/16
+        subnet:
+          ip: 10.20.10.1/24
+
+  - name: instance-2
+    image: centos-stream-9
+    networks:
+      shared:
+        subnet:
+          ip: 10.10.10.2/24
+    volumes:
+      - name: volume-1
+      - name: volume-2
+        size: 20
+
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      callback_whitelist: ansible.posix.timer,ansible.posix.profile_tasks,ansible.posix.profile_roles
+      callbacks_enabled: ansible.posix.timer,ansible.posix.profile_tasks,ansible.posix.profile_roles
+
+verifier:
+  name: ansible

@@ -1,0 +1,93 @@
+{
+  "$id": "https://raw.githubusercontent.com/ansible-community/molecule/main/src/molecule/driver/driver.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["driver"],
+  "properties": {
+    "driver": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["molecule_hetznercloud"]
+        },
+        "options": {
+          "type": "object"
+        }
+      },
+      "platforms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["name", "image"],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": "30"
+            },
+            "image": {
+              "type": "string"
+            },
+            "server_type": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "datacenter": {
+              "type": "string"
+            },
+            "user_data": {
+              "type": "string"
+            },
+            "networks": {
+              "type": "object",
+              "required": ["subnet"],
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-zA-Z0-9-_]+$": {
+                  "ip_range": {
+                    "type": "string"
+                  },
+                  "subnet": {
+                    "type": "object",
+                    "required": ["ip"],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ip": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "network_zone": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "volumes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["name"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

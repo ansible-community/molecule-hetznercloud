@@ -5,153 +5,126 @@
   gather_facts: false
   no_log: "{{ molecule_no_log }}"
   vars:
+    resource_namespace: "{{ molecule_scenario_directory | md5 }}"
+
     ssh_port: 22
     ssh_user: root
-    ssh_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
+    ssh_key_path: "{{ molecule_ephemeral_directory }}/ssh_key"
+    ssh_key_name: "{{ resource_namespace }}"
   tasks:
     - name: Create SSH key
-      openssh_keypair:
-        path: "{{ ssh_path }}"
-        force: true
+      community.crypto.openssh_keypair:
+        path: "{{ ssh_key_path }}"
       register: generated_ssh_key
 
-    - name: Register the SSH key name
-      set_fact:
-        ssh_key_name: "molecule-generated-{{ 12345 | random | to_uuid }}"
-
-    - name: Register SSH key for test instance(s)
-      hcloud_ssh_key:
+    - name: Register SSH key for server(s)
+      hetzner.hcloud.hcloud_ssh_key:
         name: "{{ ssh_key_name }}"
         public_key: "{{ generated_ssh_key.public_key }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+        labels:
+          molecule: "{{ resource_namespace }}"
         state: present
 
-    - name: Create molecule instance(s)
-      hcloud_server:
-        name: "{{ item.name }}"
-        server_type: "{{ item.server_type }}"
-        ssh_keys:
-          - "{{ ssh_key_name }}"
+    - name: Create server(s)
+      hetzner.hcloud.hcloud_server:
+        name: "{{ resource_namespace }}-{{ item.name }}"
         image: "{{ item.image }}"
+        server_type: "{{ item.server_type | default('cx11') }}"
+        ssh_keys: ["{{ ssh_key_name }}"]
         location: "{{ item.location | default(omit) }}"
         datacenter: "{{ item.datacenter | default(omit) }}"
         user_data: "{{ item.user_data | default(omit) }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
-        state: present
-      register: server
-      with_items: "{{ molecule_yml.platforms }}"
+        labels:
+          molecule: "{{ resource_namespace }}"
+        state: started
+      loop: "{{ molecule_yml.platforms }}"
+      register: servers_jobs
       async: 7200
       poll: 0
 
-    - name: Wait for instance(s) creation to complete
-      async_status:
+    - name: Wait for server(s) creation to complete
+      ansible.builtin.async_status:
         jid: "{{ item.ansible_job_id }}"
-      register: hetzner_jobs
-      until: hetzner_jobs.finished
+      loop: "{{ servers_jobs.results }}"
+      register: servers
+      until: servers is finished
       retries: 300
-      with_items: "{{ server.results }}"
 
     - name: Create volume(s)
-      hcloud_volume:
-        name: "{{ item.1.name | default(item.0.name) }}"
-        server: "{{ item.0.name }}"
-        location: "{{ item.1.location | default(omit) }}"
-        size: "{{ item.1.size | default(10) }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
-        state: "present"
-      loop: "{{ molecule_yml.platforms|subelements('volumes', skip_missing=True)}}"
-      register: volumes
-      async: 7200
-      poll: 0
+      hetzner.hcloud.hcloud_volume:
+        name: "{{ resource_namespace }}-{{ item.name }}"
+        server: "{{ resource_namespace }}-{{ item.server_name }}"
+        size: "{{ item.size | default(10) }}"
+        labels:
+          molecule: "{{ resource_namespace }}"
+        state: present
+      loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_volumes() }}"
 
-    - name: Wait for volume(s) creation to complete
-      async_status:
-        jid: "{{ item.ansible_job_id }}"
-      register: hetzner_volumes
-      until: hetzner_volumes.finished
-      retries: 300
-      when:
-        - volumes is defined
-        - volumes.changed
-      with_items: "{{ volumes.results }}"
-
-    - name: Create private network(s)
-      hcloud_network:
-        name: "{{ item.name }}"
+    - name: Create network(s)
+      hetzner.hcloud.hcloud_network:
+        name: "{{ resource_namespace }}-{{ item.name }}"
         ip_range: "{{ item.ip_range | default(omit) }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
-        state: "present"
-      loop: "{{ molecule_yml.platforms|molecule_get_hetznercloud_networks('networks') }}"
-      register: networks
-      async: 7200
-      poll: 0
+        labels:
+          molecule: "{{ resource_namespace }}"
+        state: present
+      loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_networks() }}"
 
-    - name: Wait for network(s) creation to complete
-      async_status:
-        jid: "{{ item.ansible_job_id }}"
-      register: hetzner_networks
-      until: hetzner_networks.finished
-      retries: 300
-      when:
-        - networks is defined
-        - networks.changed
-      with_items: "{{ networks.results }}"
-
-    - name: Create private subnetwork(s)
-      hcloud_subnetwork:
-        network: "{{ item.network_name }}"
-        ip_range: "{{ item.ip|ipaddr('network/prefix') }}"
+    - name: Create subnetwork(s) # noqa jinja[invalid]
+      hetzner.hcloud.hcloud_subnetwork:
+        network: "{{ resource_namespace }}-{{ item.network_name }}"
+        ip_range: "{{ item.ip | ansible.utils.ipaddr('network/prefix') }}"
         network_zone: "{{ item.network_zone | default('eu-central') }}"
         type: "{{ item.type | default('cloud') }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
-        state: "present"
-      loop: "{{ molecule_yml.platforms|molecule_get_hetznercloud_networks('subnetworks') }}"
-      register: subnetworks
+        state: present
+      loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_subnetworks() }}"
 
-    - name: Attach Server to Subnetwork(s)
-      hcloud_server_network:
-        network: "{{ item.network_name }}"
-        server: "{{ item.server_name }}"
-        ip: "{{ item.ip|ipaddr('address') }}"
-        api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
-        state: "present"
-      loop: "{{ molecule_yml.platforms|molecule_get_hetznercloud_networks('subnetworks') }}"
+    - name: Attach server to subnetwork(s) # noqa jinja[invalid]
+      hetzner.hcloud.hcloud_server_network:
+        network: "{{ resource_namespace }}-{{ item.network_name }}"
+        server: "{{ resource_namespace }}-{{ item.server_name }}"
+        ip: "{{ item.ip | ansible.utils.ipaddr('address') }}"
+        state: present
+      loop: >
+        {{
+          molecule_yml.platforms
+          | molecule_get_hetznercloud_subnetworks()
+          | rejectattr('type', '==', 'vswitch')
+        }}
 
-    - name: Populate instance config dict
-      set_fact:
-        instance_conf_dict:
-          {
-            "instance": "{{ item.hcloud_server.name }}",
-            "ssh_key_name": "{{ ssh_key_name }}",
-            "address": "{{ item.hcloud_server.ipv4_address }}",
-            "user": "{{ ssh_user }}",
-            "port": "{{ ssh_port }}",
-            "identity_file": "{{ ssh_path }}",
-            "volumes": "{{ item.item.item.volumes | default({}) }}",
-            "networks": "{{ item.item.item.networks | default({}) | dict2items(key_name='name', value_name='data') }}",
-          }
-      with_items: "{{ hetzner_jobs.results }}"
-      register: instance_config_dict
-      when: server.changed | bool
+    - name: Create instance config
+      block:
+        - name: Populate instance config dict
+          ansible.builtin.set_fact:
+            instance_conf_dict:
+              {
+                "instance": "{{ item.item.item.name }}",
+                "address": "{{ item.hcloud_server.ipv4_address }}",
+                "user": "{{ ssh_user }}",
+                "port": "{{ ssh_port }}",
+                "ssh_key_name": "{{ ssh_key_name }}",
+                "identity_file": "{{ ssh_key_path }}",
+                "volumes": "{{ item.item.item.volumes | default([]) }}",
+                "networks": "{{ item.item.item.networks | default({}) | dict2items(key_name='name') }}",
+              }
+          loop: "{{ servers.results }}"
+          register: instance_config_dict
 
-    - name: Convert instance config dict to a list
-      set_fact:
-        instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
-      when: server.changed | bool
+        - name: Convert instance config dict to a list
+          ansible.builtin.set_fact:
+            instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
 
-    - name: Dump instance config
-      copy:
-        content: |
-          # Molecule managed
+        - name: Dump instance config
+          ansible.builtin.copy:
+            content: |
+              # Molecule managed
 
-          {{ instance_conf | to_json | from_json | to_yaml }}
-        dest: "{{ molecule_instance_config }}"
-      when: server.changed | bool
+              {{ instance_conf | to_yaml }}
+            dest: "{{ molecule_instance_config }}"
+            mode: "0600"
 
     - name: Wait for SSH
-      wait_for:
-        port: "{{ ssh_port }}"
+      ansible.builtin.wait_for:
         host: "{{ item.address }}"
+        port: "{{ item.port }}"
         search_regex: SSH
-        delay: 10
-      with_items: "{{ lookup('file', molecule_instance_config) | from_yaml }}"
+      loop: "{{ lookup('file', molecule_instance_config) | from_yaml }}"
