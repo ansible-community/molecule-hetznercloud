@@ -1,4 +1,17 @@
 ---
 collections:
-  - community.crypto
-  - hetzner.hcloud
+  - name: community.crypto
+    source: https://github.com/ansible-collections/community.crypto
+    type: git
+
+  - name: hetzner.hcloud
+    source: https://github.com/ansible-collections/hetzner.hcloud
+    type: git
+
+  - name: ansible.netcommon
+    source: https://github.com/ansible-collections/ansible.netcommon
+    type: git
+
+  - name: ansible.utils
+    source: https://github.com/ansible-collections/ansible.utils
+    type: git
