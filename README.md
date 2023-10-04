@@ -76,8 +76,6 @@ Your `molecule/default/molecule.yml` should then look like the following.
 
 ```yaml
 ---
-dependency:
-  name: galaxy
 driver:
   name: molecule_hetznercloud
 platforms:
@@ -114,6 +112,7 @@ platforms:
       # Name of the network
       network-1:
         # IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918.
+        # If multiple hosts using the same network, you may only define it once.
         # required
         ip_range: 10.0.0.0/16
         subnet:
@@ -130,11 +129,6 @@ platforms:
         ip_range: 10.1.0.0/16
         subnet:
           ip: 10.1.0.1/24
-
-provisioner:
-  name: ansible
-verifier:
-  name: ansible
 ```
 
 > [!NOTE]
