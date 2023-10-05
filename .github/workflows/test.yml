@@ -43,6 +43,8 @@ jobs:
     name: Integration Python ${{ matrix.python-version }}
     steps:
       - uses: hetznercloud/tps-action@main
+        with:
+          tps-token: ${{ secrets.TPS_TOKEN }}
 
       - uses: actions/checkout@v3
 
