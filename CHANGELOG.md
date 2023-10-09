@@ -1,5 +1,39 @@
 # Changelog
 
+## [2.0.0](https://github.com/ansible-community/molecule-hetznercloud/compare/1.3.0...v2.0.0) (2023-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* the instance volumes now require a `name`
+* the molecule driver drops support for python version <3.9
+* the molecule driver drops support for molecule version <5.0
+* the molecule driver name was renamed from `hetznercloud` to `molecule_hetznercloud`
+* rewrite hetznercloud molecule driver ([#46](https://github.com/ansible-community/molecule-hetznercloud/issues/46))
+
+### Features
+
+* allow user defined RESOURCE_NAMESPACE ([#54](https://github.com/ansible-community/molecule-hetznercloud/issues/54)) ([1efd919](https://github.com/ansible-community/molecule-hetznercloud/commit/1efd919552d0507a21945efcdf4799aeee821065))
+* instance `server_type` now defaults to `cx11` ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+* rename driver name to `molecule_hetznercloud`  ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+* require instance volumes name ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+* require molecule &gt;=5.0,&lt;7.0 ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+* require python&gt;=3.9 ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+* rewrite hetznercloud molecule driver ([#46](https://github.com/ansible-community/molecule-hetznercloud/issues/46)) ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+* update driver schema ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+
+
+### Bug Fixes
+
+* remove ansible-compat dependency ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+* remove unused dependencies ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+
+
+### Documentation
+
+* add project history ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+* the hetzner.hcloud collection require ansible-core&gt;=2.13 ([36a28f4](https://github.com/ansible-community/molecule-hetznercloud/commit/36a28f40da6b98eb7473739cf0edc0989f89b978))
+
 ## [1.3.0] - 2021-09-02
 
 Changes:
