@@ -159,6 +159,13 @@ $ export MOLECULE_NO_LOG=False  # not so verbose, helpful
 $ export MOLECULE_DEBUG=True  # very verbose, last ditch effort
 ```
 
+You may also define a custom resource namespace by exposing the following
+environment variables, for example in CI workflows:
+
+```bash
+$ export RESOURCE_NAMESPACE=e121dc64ff615ccdfac71bb5c00296b9 # Ensure the value length is <= 32
+```
+
 ## Development
 
 ### Testing

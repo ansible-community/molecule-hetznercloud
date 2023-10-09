@@ -5,7 +5,7 @@
   gather_facts: false
   no_log: "{{ molecule_no_log }}"
   vars:
-    resource_namespace: "{{ molecule_scenario_directory | md5 }}"
+    resource_namespace: "{{ lookup('ansible.builtin.env', 'RESOURCE_NAMESPACE') | default(molecule_scenario_directory | md5, true) }}"
   tasks:
     - name: Populate the instance config
       ansible.builtin.set_fact:

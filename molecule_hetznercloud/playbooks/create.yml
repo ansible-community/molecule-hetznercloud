@@ -5,7 +5,7 @@
   gather_facts: false
   no_log: "{{ molecule_no_log }}"
   vars:
-    resource_namespace: "{{ molecule_scenario_directory | md5 }}"
+    resource_namespace: "{{ lookup('ansible.builtin.env', 'RESOURCE_NAMESPACE') | default(molecule_scenario_directory | md5, true) }}"
 
     ssh_port: 22
     ssh_user: root
