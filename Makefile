@@ -11,11 +11,11 @@ ansible_collections: venv
 
 .PHONY: test
 test: venv
-	venv/bin/tox -- tests/functional tests/unit
+	venv/bin/tox -- $(ARGS) tests/functional tests/unit
 
 .PHONY: integration
 integration: venv ansible_collections
-	venv/bin/tox -- tests/integration
+	venv/bin/tox -- $(ARGS) tests/integration
 
 .PHONY: clean
 clean:
