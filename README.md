@@ -1,6 +1,7 @@
 # Molecule Hetzner Cloud Driver
 
 [![PyPI Package](https://img.shields.io/pypi/v/molecule-hetznercloud)](https://pypi.org/project/molecule-hetznercloud/)
+[![Codecov](https://img.shields.io/codecov/c/github/ansible-community/molecule-hetznercloud/main)](https://app.codecov.io/gh/ansible-community/molecule-hetznercloud/tree/main)
 [![License](https://img.shields.io/badge/license-LGPL-brightgreen.svg)](LICENSE)
 
 A [Hetzner Cloud](https://www.hetzner.com/cloud) driver for [Molecule](https://ansible.readthedocs.io/projects/molecule/).
