@@ -28,7 +28,7 @@ jobs:
           venv/bin/pip install tox tox-gh-actions
 
       - name: Run tests
-        run: make test ARGS="--cov --cov-report=xml"
+        run: make test ARGS="--cov --cov-config=pyproject.toml --cov-report=xml"
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -62,7 +62,7 @@ jobs:
           venv/bin/pip install tox tox-gh-actions
 
       - name: Run integrations
-        run: make integration ARGS="--cov --cov-report=xml"
+        run: make integration ARGS="--cov --cov-config=pyproject.toml --cov-report=xml"
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
