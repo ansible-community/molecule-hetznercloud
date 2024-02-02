@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/ansible-community/molecule-hetznercloud/compare/2.0.0...2.1.0) (2024-02-02)
+
+
+### Features
+
+* change the generated ssh key type to `ed25519` ([#69](https://github.com/ansible-community/molecule-hetznercloud/issues/69)) ([2b6ab8a](https://github.com/ansible-community/molecule-hetznercloud/commit/2b6ab8a481f3f9d25172b6a564495fe7499a940c))
+* enable support for python 3.12 ([#50](https://github.com/ansible-community/molecule-hetznercloud/issues/50)) ([f665af4](https://github.com/ansible-community/molecule-hetznercloud/commit/f665af4d62b0daf7ce0ae4a3b42ad8484659226d))
+
 ## [2.0.0](https://github.com/ansible-community/molecule-hetznercloud/compare/1.3.0...v2.0.0) (2023-10-09)
 
 ### ⚠ BREAKING CHANGES
