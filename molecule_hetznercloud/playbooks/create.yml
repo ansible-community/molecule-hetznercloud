@@ -15,6 +15,7 @@
     - name: Create SSH key
       community.crypto.openssh_keypair:
         path: "{{ ssh_key_path }}"
+        type: ed25519
       register: generated_ssh_key
 
     - name: Register SSH key for server(s)
