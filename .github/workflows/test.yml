@@ -35,8 +35,9 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
+          flags: unit
 
-  integration:
+  e2e:
     runs-on: ubuntu-latest
 
     strategy:
@@ -46,7 +47,7 @@ jobs:
     permissions:
       id-token: write
 
-    name: Integration Python ${{ matrix.python-version }}
+    name: E2E Python ${{ matrix.python-version }}
     steps:
       - uses: hetznercloud/tps-action@main
         with:
@@ -75,3 +76,4 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
+          flags: e2e
