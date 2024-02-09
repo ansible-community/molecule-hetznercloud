@@ -6,14 +6,13 @@ on:
   pull_request:
 
 jobs:
-  test:
+  unit:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
 
-    name: Python ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
 
@@ -31,11 +30,13 @@ jobs:
         run: make test ARGS="--cov --cov-config=pyproject.toml --cov-report=xml"
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
+          flags: unit
 
-  integration:
+  e2e:
     runs-on: ubuntu-latest
 
     strategy:
@@ -45,7 +46,6 @@ jobs:
     permissions:
       id-token: write
 
-    name: Integration Python ${{ matrix.python-version }}
     steps:
       - uses: hetznercloud/tps-action@main
         with:
@@ -70,6 +70,8 @@ jobs:
           ANSIBLE_FORCE_COLOR: "1"
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
+          flags: e2e
