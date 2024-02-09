@@ -6,14 +6,13 @@ on:
   pull_request:
 
 jobs:
-  test:
+  unit:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
 
-    name: Python ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
 
@@ -47,7 +46,6 @@ jobs:
     permissions:
       id-token: write
 
-    name: E2E Python ${{ matrix.python-version }}
     steps:
       - uses: hetznercloud/tps-action@main
         with:
