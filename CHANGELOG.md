@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/ansible-community/molecule-hetznercloud/compare/2.1.0...2.1.1) (2024-02-09)
+
+
+### Dependencies
+
+* update dependency molecule to v24 ([#81](https://github.com/ansible-community/molecule-hetznercloud/issues/81)) ([30516de](https://github.com/ansible-community/molecule-hetznercloud/commit/30516deaeec7643c4f6f2708c68eef3cfec55251))
+
 ## [2.1.0](https://github.com/ansible-community/molecule-hetznercloud/compare/2.0.0...2.1.0) (2024-02-02)
 
 
