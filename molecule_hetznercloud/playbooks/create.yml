@@ -30,7 +30,7 @@
       hetzner.hcloud.hcloud_server:
         name: "{{ resource_namespace }}-{{ item.name }}"
         image: "{{ item.image }}"
-        server_type: "{{ item.server_type | default('cx11') }}"
+        server_type: "{{ item.server_type | default('cx22') }}"
         ssh_keys: ["{{ ssh_key_name }}"]
         location: "{{ item.location | default(omit) }}"
         datacenter: "{{ item.datacenter | default(omit) }}"
