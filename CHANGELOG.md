@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.2.0](https://github.com/ansible-community/molecule-hetznercloud/compare/2.1.1...2.2.0) (2024-06-11)
+
+
+### Features
+
+* instance `server_type` now defaults to `cx22` ([#99](https://github.com/ansible-community/molecule-hetznercloud/issues/99)) ([b1bb242](https://github.com/ansible-community/molecule-hetznercloud/commit/b1bb24242272e2d8cfd82c6efde86f90994162c0))
+
+
+### Dependencies
+
+* update dependency molecule to &gt;=5.0.0,&lt;24.7 ([#98](https://github.com/ansible-community/molecule-hetznercloud/issues/98)) ([eb56da9](https://github.com/ansible-community/molecule-hetznercloud/commit/eb56da94eb088dbd5549882c294fe0207853670f))
+* update dependency pytest-cov to v5 ([#92](https://github.com/ansible-community/molecule-hetznercloud/issues/92)) ([3cde3ca](https://github.com/ansible-community/molecule-hetznercloud/commit/3cde3ca9a028ce4c1a1c8e1caaa1086f5074b328))
+* update pre-commit hook asottile/pyupgrade to v3.15.1 ([#83](https://github.com/ansible-community/molecule-hetznercloud/issues/83)) ([76cd33f](https://github.com/ansible-community/molecule-hetznercloud/commit/76cd33f77867fff898aac534e062e552e5aef401))
+* update pre-commit hook asottile/pyupgrade to v3.15.2 ([26bfb65](https://github.com/ansible-community/molecule-hetznercloud/commit/26bfb652fbe87177b107e00ab69c66f80e728095))
+* update pre-commit hook asottile/pyupgrade to v3.16.0 ([292dda1](https://github.com/ansible-community/molecule-hetznercloud/commit/292dda12a67a08ce453d1f235085810e8f1826fe))
+* update pre-commit hook pre-commit/pre-commit-hooks to v4.6.0 ([73035ce](https://github.com/ansible-community/molecule-hetznercloud/commit/73035ce0da0b474f118b4fb386b56bde1d3722af))
+* update pre-commit hook psf/black-pre-commit-mirror to v24.2.0 ([#82](https://github.com/ansible-community/molecule-hetznercloud/issues/82)) ([96030aa](https://github.com/ansible-community/molecule-hetznercloud/commit/96030aa38bb0cfb4c68301cab0f50ef73cf30ac5))
+* update pre-commit hook psf/black-pre-commit-mirror to v24.3.0 ([a8fce1f](https://github.com/ansible-community/molecule-hetznercloud/commit/a8fce1f11f23ad78c5c0746fe2191d91484d4e68))
+* update pre-commit hook psf/black-pre-commit-mirror to v24.4.0 ([41225db](https://github.com/ansible-community/molecule-hetznercloud/commit/41225db7d216fcd9a35afa352679f05cbd6d132f))
+* update pre-commit hook psf/black-pre-commit-mirror to v24.4.1 ([#95](https://github.com/ansible-community/molecule-hetznercloud/issues/95)) ([06df822](https://github.com/ansible-community/molecule-hetznercloud/commit/06df8229c11775bace06fed18657be2244a9ec65))
+* update pre-commit hook psf/black-pre-commit-mirror to v24.4.2 ([e03b63e](https://github.com/ansible-community/molecule-hetznercloud/commit/e03b63e9c035636df0bca464dc124e876d460d15))
+* update pypa/gh-action-pypi-publish action to v1.8.12 ([#87](https://github.com/ansible-community/molecule-hetznercloud/issues/87)) ([440c71d](https://github.com/ansible-community/molecule-hetznercloud/commit/440c71d8273b47985d0113ac26de8edf20fdab6f))
+* update pypa/gh-action-pypi-publish action to v1.8.14 ([#88](https://github.com/ansible-community/molecule-hetznercloud/issues/88)) ([c1f46bb](https://github.com/ansible-community/molecule-hetznercloud/commit/c1f46bba686f7369931441b3ebe24ab9eeb6c674))
+
 ## [2.1.1](https://github.com/ansible-community/molecule-hetznercloud/compare/2.1.0...2.1.1) (2024-02-09)
 
 
