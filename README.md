@@ -46,13 +46,13 @@ $ pip install --upgrade molecule-hetznercloud
 
 - Each resource (servers, volumes, networks) name are prefixed with a hash (32 chars) based on the role and scenario path. This means you MAY reuse the same names (e.g. `instance-1`) across your scenarios. Resource names MUST not exceed their max length, for example the server name max length is 63 chars, with the prefix you only have 31 chars left for your name.
 
-- In your `molecule.yml` files, the platforms server type (`platforms[].server_type`) field now defaults to `cx11`. If you already use the default, you MAY remove the field:
+- In your `molecule.yml` files, the platforms server type (`platforms[].server_type`) field now defaults to `cx22`. If you already use the default, you MAY remove the field:
 
 ```patch
  platforms:
    - name: instance-1
      image: debian-12
--    server_type: cx11
+-    server_type: cx22
 ```
 
 ## Usage
@@ -87,8 +87,8 @@ platforms:
     # required
     image: debian-12
     # Name of the Server type this Server should be created with.
-    # default: cx11
-    server_type: cx11
+    # default: cx22
+    server_type: cx22
     # Name of Location to create Server in (must not be used together with datacenter).
     # default: omit
     location: hel1
