@@ -38,14 +38,13 @@ setup(
         "Natural Language :: English",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Topic :: System :: Systems Administration",
         "Topic :: Utilities",
     ],
-    python_requires=">=3.9",
+    python_requires=">=3.10",
     install_requires=[
         "molecule>=5.0.0,<24.8",
         # Dependencies for the hetzner.hcloud collection
