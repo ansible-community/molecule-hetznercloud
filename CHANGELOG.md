@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.3.0](https://github.com/ansible-community/molecule-hetznercloud/compare/2.2.0...2.3.0) (2024-08-19)
+
+
+### Features
+
+* require python&gt;=3.10 ([#108](https://github.com/ansible-community/molecule-hetznercloud/issues/108)) ([a623c02](https://github.com/ansible-community/molecule-hetznercloud/commit/a623c02e2ee9dbf4e0a374eec2960fad5702ad7c))
+
+
+### Dependencies
+
+* update pre-commit hook pycqa/flake8 to v7.1.0 ([e33c1af](https://github.com/ansible-community/molecule-hetznercloud/commit/e33c1af40d8a8d17f7508ffa87413c3d2ec634da))
+* update pypa/gh-action-pypi-publish action to v1.9.0 ([#104](https://github.com/ansible-community/molecule-hetznercloud/issues/104)) ([bf0ca8a](https://github.com/ansible-community/molecule-hetznercloud/commit/bf0ca8a5508db0d718faff9d606c18c46365d17e))
+
 ## [2.2.0](https://github.com/ansible-community/molecule-hetznercloud/compare/2.1.1...2.2.0) (2024-06-11)
 
 
