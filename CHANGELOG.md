@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/ansible-community/molecule-hetznercloud/compare/2.3.1...2.3.2) (2025-01-13)
+
+
+### Bug Fixes
+
+* relax molecule version range ([#136](https://github.com/ansible-community/molecule-hetznercloud/issues/136)) ([f0d176c](https://github.com/ansible-community/molecule-hetznercloud/commit/f0d176c19c3dce98633f6766c759643c41b7a95e)), closes [#135](https://github.com/ansible-community/molecule-hetznercloud/issues/135)
+
 ## [2.3.1](https://github.com/ansible-community/molecule-hetznercloud/compare/2.3.0...2.3.1) (2024-10-08)
 
 
