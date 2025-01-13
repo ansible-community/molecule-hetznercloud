@@ -46,7 +46,7 @@ setup(
     ],
     python_requires=">=3.10",
     install_requires=[
-        "molecule>=5.0.0,<24.13",
+        "molecule>=5.0.0",
         # Dependencies for the hetzner.hcloud collection
         "python-dateutil>=2.7.5",
         "requests>=2.20",
