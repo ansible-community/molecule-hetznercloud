@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: Include integration
-      ansible.builtin.include_role:
-        name: integration
+    - name: Debug output
+      ansible.builtin.debug:
+        msg: "{{ ansible_hostname }}"
