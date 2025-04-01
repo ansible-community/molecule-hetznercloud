@@ -7,7 +7,7 @@ with open("README.md", encoding="utf-8") as readme_file:
 
 setup(
     name="molecule-hetznercloud",
-    version="2.3.2",  # x-release-please-version
+    version="2.3.2",  # x-releaser-pleaser-version
     keywords="ansible molecule driver hcloud hetzner cloud testing",
     description="Molecule driver for Hetzner Cloud",
     long_description=readme,
