@@ -1,3 +1,4 @@
+.ansible/
 ansible_collections
 
 # Byte-compiled / optimized / DLL files
