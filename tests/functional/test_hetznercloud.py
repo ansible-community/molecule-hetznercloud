@@ -5,7 +5,14 @@ from shutil import copytree
 
 import pytest
 from molecule._version import version_tuple as molecule_version_tuple
-from molecule.util import run_command
+
+if molecule_version_tuple < (25, 1):
+    from molecule.util import run_command
+else:
+    from molecule.app import get_app
+
+    run_command = get_app(Path()).run_command
+
 
 import molecule_hetznercloud
 
