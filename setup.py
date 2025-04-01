@@ -5,15 +5,9 @@ from setuptools import find_packages, setup
 with open("README.md", encoding="utf-8") as readme_file:
     readme = readme_file.read()
 
-
-version_vars = {}
-with open("molecule_hetznercloud/_version.py", encoding="utf-8") as fp:
-    exec(fp.read(), version_vars)
-
-
 setup(
     name="molecule-hetznercloud",
-    version=version_vars["__version__"],
+    version="2.3.2",  # x-releaser-pleaser-version
     keywords="ansible molecule driver hcloud hetzner cloud testing",
     description="Molecule driver for Hetzner Cloud",
     long_description=readme,
