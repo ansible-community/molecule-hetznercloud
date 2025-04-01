@@ -22,3 +22,4 @@ jobs:
           token: ${{ secrets.HCLOUD_BOT_TOKEN }}
           extra-files: |
             molecule_hetznercloud/_version.py
+            setup.py
