@@ -1,5 +1,12 @@
 # Changelog
 
+## [v2.4.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.4.0)
+
+### Features
+
+- add support for molecule 25 (#148)
+- add support for python 3.13 (#155)
+
 ## [2.3.2](https://github.com/ansible-community/molecule-hetznercloud/compare/2.3.1...2.3.2) (2025-01-13)
 
 
