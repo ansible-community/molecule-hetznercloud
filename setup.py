@@ -54,7 +54,7 @@ setup(
             "pytest-xdist>=3.3.1,<4.0",
             "pytest>=8.3.2,<8.4",
             "pytest-ansible>=25.5,<25.6",
-            "pytest-cov>=6,<6.2",
+            "pytest-cov>=6,<6.3",
         ],
     },
     packages=find_packages(exclude=["tests*"]),
