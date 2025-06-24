@@ -14,7 +14,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Hetzner Cloud GmbH",
     author_email="support-cloud@hetzner.com",
-    url="https://github.com/hetznercloud/hcloud-python",
+    url="https://github.com/ansible-community/molecule-hetznercloud",
     project_urls={
         "Bug Tracker": "https://github.com/ansible-community/molecule-hetznercloud/issues",
         "Documentation": "https://github.com/ansible-community/molecule-hetznercloud#readme",
