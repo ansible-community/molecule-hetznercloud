@@ -5,6 +5,10 @@
     {
       "matchPackageNames": ["molecule"],
       "rangeStrategy": "widen"
+    },
+    {
+      "matchDepTypes": ["galaxy-collection"],
+      "groupName": "galaxy-collection"
     }
   ]
 }
