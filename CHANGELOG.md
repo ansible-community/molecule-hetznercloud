@@ -1,5 +1,11 @@
 # Changelog
 
+## [v2.4.1](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.4.1)
+
+### Bug Fixes
+
+- invalid package repository url (#165)
+
 ## [v2.4.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.4.0)
 
 ### Features
