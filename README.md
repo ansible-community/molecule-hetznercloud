@@ -57,7 +57,7 @@ $ pip install --upgrade molecule-hetznercloud
 
 ## Usage
 
-To communicate with the Hetzner Cloud API, you need to expose a `HCLOUD_TOKEN` environment variable. Find out more about how to get a Hetzner Cloud API token in the [authentication documentation](https://docs.hetzner.cloud/#authentication).
+To communicate with the Hetzner Cloud API, you need to expose a `HCLOUD_TOKEN` environment variable. Find out more about how to get a Hetzner Cloud API token in the [authentication documentation](https://docs.hetzner.cloud/reference/cloud#authentication).
 
 ```bash
 $ export HCLOUD_TOKEN="set_the_hcloud_token_here"
