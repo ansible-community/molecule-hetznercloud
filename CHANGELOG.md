@@ -1,5 +1,11 @@
 # Changelog
 
+## [v2.5.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.5.0)
+
+### Features
+
+- drop support for molecule v5 and v6 (#169)
+
 ## [v2.4.1](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.4.1)
 
 ### Bug Fixes
