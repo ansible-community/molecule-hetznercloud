@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.5.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.5.0)
+
+While this release drops support for older versions of molecule, users may still use them. We only stopped testing the older versions of molecule in our CI.
+
+### Features
+
+- drop support for molecule v5 and v6 (#169)
+
+### Bug Fixes
+
+- ansible-core 2.19 compatibility (#180)
+
 ## [v2.4.1](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.4.1)
 
 ### Bug Fixes
