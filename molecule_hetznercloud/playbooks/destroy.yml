@@ -53,7 +53,7 @@
       register: networks
 
     - name: Remove registered SSH key
-      when: instance_conf | length
+      when: instance_conf | length > 0
       hetzner.hcloud.hcloud_ssh_key:
         name: "{{ instance_conf[0].ssh_key_name }}"
         state: absent
