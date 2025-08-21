@@ -53,7 +53,7 @@ setup(
             "tox>=4.11.3,<5.0",
             "pytest-xdist>=3.3.1,<4.0",
             "pytest>=8.4.1,<8.5",
-            "pytest-ansible>=25.6,<25.7",
+            "pytest-ansible>=25.8,<25.9",
             "pytest-cov>=6,<6.3",
         ],
     },
