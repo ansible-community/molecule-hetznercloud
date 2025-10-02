@@ -49,6 +49,22 @@ def get_hetznercloud_subnetworks(platforms: list[dict]) -> list[dict]:
     return all_subnetworks
 
 
+def get_hetznercloud_floating_ips(platforms: list[dict]) -> list[dict]:
+    all_floating_ips = []
+
+    for platform in platforms:
+        if "floating_ips" not in platform:
+            continue
+
+        for floating_ip_name, floating_ip in platform["floating_ips"].items():
+            floating_ip["server_name"] = platform["name"]
+            floating_ip["name"] = floating_ip_name
+
+            all_floating_ips.append(floating_ip)
+
+    return all_floating_ips
+
+
 def get_hetznercloud_volumes(platforms: list[dict]) -> list[dict]:
     all_volumes = []
     for platform in platforms:
@@ -69,5 +85,6 @@ class FilterModule:
         return {
             "molecule_get_hetznercloud_networks": get_hetznercloud_networks,
             "molecule_get_hetznercloud_subnetworks": get_hetznercloud_subnetworks,
+            "molecule_get_hetznercloud_floating_ips": get_hetznercloud_floating_ips,
             "molecule_get_hetznercloud_volumes": get_hetznercloud_volumes,
         }
