@@ -1,5 +1,11 @@
 # Changelog
 
+## [v2.6.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.6.0)
+
+### Features
+
+- set server-type default to cx23 (#198)
+
 ## [v2.5.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.5.0)
 
 While this release drops support for older versions of molecule, users may still use them. We only stopped testing the older versions of molecule in our CI.
