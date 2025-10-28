@@ -87,8 +87,8 @@ platforms:
     # required
     image: debian-12
     # Name of the Server type this Server should be created with.
-    # default: cx22
-    server_type: cx22
+    # default: cx23
+    server_type: cx23
     # Name of Location to create Server in (must not be used together with datacenter).
     # default: omit
     location: hel1
