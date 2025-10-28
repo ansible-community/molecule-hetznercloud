@@ -30,7 +30,7 @@ jobs:
 
       - name: Upload packages artifact
         if: github.event_name == 'release'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: python-packages
           path: dist/
@@ -48,7 +48,7 @@ jobs:
     needs: [build]
     steps:
       - name: Download packages artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: python-packages
           path: dist/
