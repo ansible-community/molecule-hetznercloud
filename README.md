@@ -4,7 +4,7 @@
 [![Codecov](https://img.shields.io/codecov/c/github/ansible-community/molecule-hetznercloud/main)](https://app.codecov.io/gh/ansible-community/molecule-hetznercloud/tree/main)
 [![License](https://img.shields.io/badge/license-LGPL-brightgreen.svg)](LICENSE)
 
-A [Hetzner Cloud](https://www.hetzner.com/cloud) driver for [Molecule](https://ansible.readthedocs.io/projects/molecule/).
+A [Hetzner Cloud](https://www.hetzner.com/cloud) driver for [Molecule](https://docs.ansible.com/projects/molecule/).
 
 This plugin allows you to use on-demand Hetzner Cloud servers for your molecule integration tests.
 
