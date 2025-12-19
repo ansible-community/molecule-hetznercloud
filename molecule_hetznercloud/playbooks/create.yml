@@ -19,7 +19,7 @@
       register: generated_ssh_key
 
     - name: Register SSH key for server(s)
-      hetzner.hcloud.hcloud_ssh_key:
+      hetzner.hcloud.ssh_key:
         name: "{{ ssh_key_name }}"
         public_key: "{{ generated_ssh_key.public_key }}"
         labels:
@@ -27,7 +27,7 @@
         state: present
 
     - name: Create server(s)
-      hetzner.hcloud.hcloud_server:
+      hetzner.hcloud.server:
         name: "{{ resource_namespace }}-{{ item.name }}"
         image: "{{ item.image }}"
         server_type: "{{ item.server_type | default('cx23') }}"
@@ -52,7 +52,7 @@
       retries: 300
 
     - name: Create volume(s)
-      hetzner.hcloud.hcloud_volume:
+      hetzner.hcloud.volume:
         name: "{{ resource_namespace }}-{{ item.name }}"
         server: "{{ resource_namespace }}-{{ item.server_name }}"
         size: "{{ item.size | default(10) }}"
@@ -62,7 +62,7 @@
       loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_volumes() }}"
 
     - name: Create network(s)
-      hetzner.hcloud.hcloud_network:
+      hetzner.hcloud.network:
         name: "{{ resource_namespace }}-{{ item.name }}"
         ip_range: "{{ item.ip_range | default(omit) }}"
         labels:
@@ -71,7 +71,7 @@
       loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_networks() }}"
 
     - name: Create subnetwork(s) # noqa jinja[invalid]
-      hetzner.hcloud.hcloud_subnetwork:
+      hetzner.hcloud.subnetwork:
         network: "{{ resource_namespace }}-{{ item.network_name }}"
         ip_range: "{{ item.ip | ansible.utils.ipaddr('network/prefix') }}"
         network_zone: "{{ item.network_zone | default('eu-central') }}"
@@ -80,7 +80,7 @@
       loop: "{{ molecule_yml.platforms | molecule_get_hetznercloud_subnetworks() }}"
 
     - name: Attach server to subnetwork(s) # noqa jinja[invalid]
-      hetzner.hcloud.hcloud_server_network:
+      hetzner.hcloud.server_network:
         network: "{{ resource_namespace }}-{{ item.network_name }}"
         server: "{{ resource_namespace }}-{{ item.server_name }}"
         ip: "{{ item.ip | ansible.utils.ipaddr('address') }}"
