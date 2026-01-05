@@ -1,10 +1,10 @@
 ---
 collections:
   - name: community.crypto
-    version: 3.0.5
+    version: 3.1.0
 
   - name: hetzner.hcloud
-    version: 6.3.0
+    version: 6.4.0
 
   - name: ansible.netcommon
     version: 8.2.0
