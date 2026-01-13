@@ -89,12 +89,9 @@ platforms:
     # Name of the Server type this Server should be created with.
     # default: cx23
     server_type: cx23
-    # Name of Location to create Server in (must not be used together with datacenter).
+    # Name of Location to create Server in.
     # default: omit
     location: hel1
-    # Name of Datacenter to create Server in (must not be used together with location).
-    # default: omit
-    datacenter: null
     # Cloud-Init user data to use during Server creation. This field is limited to 32KiB.
     # default: omit
     user_data: null
