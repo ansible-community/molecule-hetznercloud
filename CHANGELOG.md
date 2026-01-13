@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.7.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.7.0)
+
+### Phasing out datacenters in `Servers`
+
+The `datacenter` platforms config (`.platforms[].datacenter`) is deprecated, please use the `location` config instead.
+
+See our [changelog](https://docs.hetzner.cloud/changelog#2025-12-16-phasing-out-datacenters) for more details.
+
+### Features
+
+- platforms `datacenter` config is deprecated, use `location` instead (#217)
+
 ## [v2.6.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.6.0)
 
 ### Features
