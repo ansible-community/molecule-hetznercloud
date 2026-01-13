@@ -5,14 +5,14 @@
     - name: Ensure correct os family
       ansible.builtin.assert:
         that:
-          - ansible_os_family == 'Debian'
+          - ansible_facts.os_family == 'Debian'
 
     - name: Ensure private are present
       ansible.builtin.assert:
         that:
           - >
-            '10.10.10.1' in ansible_all_ipv4_addresses and
-            '10.20.10.1' in ansible_all_ipv4_addresses
+            '10.10.10.1' in ansible_facts.all_ipv4_addresses and
+            '10.20.10.1' in ansible_facts.all_ipv4_addresses
 
 - name: Verify instance-2
   hosts: instance-2
@@ -20,12 +20,12 @@
     - name: Ensure correct os family
       ansible.builtin.assert:
         that:
-          - ansible_os_family == 'RedHat'
+          - ansible_facts.os_family == 'RedHat'
 
     - name: Ensure volumes are present
       ansible.builtin.assert:
         that:
           - >
-            ansible_devices | dict2items
+            ansible_facts.devices | dict2items
             | selectattr('value.model', '==', 'Volume')
             | list | count == 2
