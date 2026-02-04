@@ -4,10 +4,10 @@ collections:
     version: 3.1.0
 
   - name: hetzner.hcloud
-    version: 6.4.0
+    version: 6.7.0
 
   - name: ansible.netcommon
-    version: 8.2.0
+    version: 8.4.0
 
   - name: ansible.utils
     version: 6.0.1
