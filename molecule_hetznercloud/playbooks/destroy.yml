@@ -52,6 +52,13 @@
       loop: "{{ instance_conf | subelements('networks', skip_missing=True) }}"
       register: networks
 
+    - name: Destroy floating_ip(s)
+      hetzner.hcloud.hcloud_floating_ip:
+        name: "{{ item.1.ip_name }}"
+        force: true
+        state: absent
+      loop: "{{ instance_conf | subelements('floating_ips', skip_missing=True) }}"
+
     - name: Remove registered SSH key
       when: instance_conf | length > 0
       hetzner.hcloud.ssh_key:
