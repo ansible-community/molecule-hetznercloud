@@ -33,7 +33,6 @@
         server_type: "{{ item.server_type | default('cx23') }}"
         ssh_keys: ["{{ ssh_key_name }}"]
         location: "{{ item.location | default(omit) }}"
-        datacenter: "{{ item.datacenter | default(omit) }}"
         user_data: "{{ item.user_data | default(omit) }}"
         labels:
           molecule: "{{ resource_namespace }}"
