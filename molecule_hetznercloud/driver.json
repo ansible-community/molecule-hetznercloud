@@ -35,9 +35,6 @@
             "location": {
               "type": "string"
             },
-            "datacenter": {
-              "type": "string"
-            },
             "user_data": {
               "type": "string"
             },
