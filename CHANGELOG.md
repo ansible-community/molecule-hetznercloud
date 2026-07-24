@@ -1,5 +1,19 @@
 # Changelog
 
+## [v2.8.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.8.0)
+
+[Compare to previous version](https://github.com/ansible-community/molecule-hetznercloud/compare/v2.7.0...v2.8.0)
+
+### Removing datacenters in `Servers`
+
+The `datacenter` platforms config (`.platforms[].datacenter`) was removed, please use the `location` config instead.
+
+See our [changelog](https://docs.hetzner.cloud/changelog#2026-07-01-removing-datacenters) for more details.
+
+### Features
+
+- platforms `datacenter` config was removed, use `location` instead (#253) ([ea7d710](https://github.com/ansible-community/molecule-hetznercloud/commit/ea7d710543e89211bec207634205eea6e982b82c))
+
 ## [v2.7.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.7.0)
 
 ### Phasing out datacenters in `Servers`
