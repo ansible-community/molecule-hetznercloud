@@ -4,7 +4,7 @@ collections:
     version: 3.3.0
 
   - name: hetzner.hcloud
-    version: 6.10.0
+    version: 7.0.0
 
   - name: ansible.netcommon
     version: 8.6.0
