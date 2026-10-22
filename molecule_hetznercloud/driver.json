@@ -1,11 +1,12 @@
 {
-  "$id": "https://raw.githubusercontent.com/ansible-community/molecule/main/src/molecule/driver/driver.json",
-  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/ansible-community/molecule-hetznercloud/refs/heads/main/molecule_hetznercloud/driver.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "required": ["driver"],
   "properties": {
     "driver": {
       "type": "object",
+      "required": ["name"],
       "properties": {
         "name": {
           "type": "string",
@@ -14,36 +15,40 @@
         "options": {
           "type": "object"
         }
-      },
-      "platforms": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "required": ["name", "image"],
-          "additionalProperties": false,
-          "properties": {
-            "name": {
-              "type": "string",
-              "maxLength": "30"
-            },
-            "image": {
-              "type": "string"
-            },
-            "server_type": {
-              "type": "string"
-            },
-            "location": {
-              "type": "string"
-            },
-            "user_data": {
-              "type": "string"
-            },
-            "networks": {
-              "type": "object",
-              "required": ["subnet"],
-              "additionalProperties": false,
-              "patternProperties": {
-                "^[a-zA-Z0-9-_]+$": {
+      }
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "image"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "image": {
+            "type": "string"
+          },
+          "server_type": {
+            "type": "string",
+            "default": "cx23"
+          },
+          "location": {
+            "type": "string"
+          },
+          "user_data": {
+            "type": "string"
+          },
+          "networks": {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[a-zA-Z0-9-_]+$": {
+                "type": "object",
+                "required": ["ip_range", "subnet"],
+                "properties": {
                   "ip_range": {
                     "type": "string"
                   },
@@ -56,29 +61,32 @@
                         "type": "string"
                       },
                       "type": {
-                        "type": "string"
+                        "type": "string",
+                        "default": "cloud"
                       },
                       "network_zone": {
-                        "type": "string"
+                        "type": "string",
+                        "default": "eu-central"
                       }
                     }
                   }
                 }
               }
-            },
-            "volumes": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "required": ["name"],
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "integer"
-                  }
+            }
+          },
+          "volumes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "integer",
+                  "default": 10
                 }
               }
             }
