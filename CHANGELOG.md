@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.8.1](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.8.1)
+
+[Compare to previous version](https://github.com/ansible-community/molecule-hetznercloud/compare/v2.8.0...v2.8.1)
+
+### Bug Fixes
+
+- config json schema validation (#270) ([7536b8c](https://github.com/ansible-community/molecule-hetznercloud/commit/7536b8c665769da9ac8a937999903ac5576d520f))
+
 ## [v2.8.0](https://github.com/ansible-community/molecule-hetznercloud/releases/tag/v2.8.0)
 
 [Compare to previous version](https://github.com/ansible-community/molecule-hetznercloud/compare/v2.7.0...v2.8.0)
